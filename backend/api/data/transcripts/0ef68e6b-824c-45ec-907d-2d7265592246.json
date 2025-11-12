@@ -1,0 +1,142 @@
+{
+  "session_id": "0ef68e6b-824c-45ec-907d-2d7265592246",
+  "timestamp": "2025-11-09T14:52:47.147898",
+  "starting_conversation": [
+    {
+      "sender": "user",
+      "text": "Hoş bulduk Merhaba"
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Hanım, hoş geldiniz! 😊  \n\nCreativePulse Ajans’ta yürüttüğünüz kampanyalardan hangisi sizin için en keyifli ve öğretici oldu?  \n\nAyrıca, “Dijital Pazarlama Uzmanı” pozisyonumuzda sizi en çok heyecanlandıran veya merak ettiren yön nedir?"
+    },
+    {
+      "sender": "user",
+      "text": "CreativePulse’ta en keyifli ve öğretici bulduğum kampanya, bir e-ticaret markasının dijital satış kampanyasını yönetmekti. Hem müşterilerle birebir iletişim kurmak hem de stratejik olarak satış hedeflerini artırmak bana çok şey öğretti ve oldukça motive etti. “Dijital Pazarlama Uzmanı” pozisyonunda ise en çok heyecanlandıran, farklı dijital kanalları kullanarak etkili kampanyalar geliştirme ve sonuç odaklı performans gösterebilme fırsatı."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika bir deneyim olmuş, gerçekten ilham verici! 🎯  \n\nBu süreçte en çok hangi araç ya da platform sizin için vazgeçilmez oldu? (Örneğin Google Analytics, Meta Business Suite vb.)  \n\nAyrıca, ideal bir çalışma ortamını nasıl tanımlarsınız? Takım içi iletişim ve zaman yönetimi konusunda neler sizi motive eder?"
+    },
+    {
+      "sender": "user",
+      "text": "Teşekkür ederim! 🎯 Bu süreçte benim için vazgeçilmez araçlar Google Analytics ve Meta Business Suite oldu; kampanyaların performansını gerçek zamanlı takip etmek ve veriye dayalı kararlar almak çok işime yaradı. İdeal çalışma ortamım, açık iletişimin ve takım iş birliğinin ön planda olduğu, hedeflerin net olduğu bir ortamdır. Takım içi düzenli geri bildirimler, hızlı bilgi paylaşımı ve net zaman yönetimi beni hem motive eder hem de daha verimli çalışmamı sağlar."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika, bu değerli paylaşımlarınız için teşekkür ederim! 🎉  \nŞimdi, dijital pazarlama alanında bir sonraki adımda özellikle hangi becerileri veya konuları daha da derinleştirerek geliştirmek istersiniz? (Örneğin veri analitiği, yeni reklam platformları, kreatif içerik üretimi vb.)"
+    },
+    {
+      "sender": "user",
+      "text": "Rica ederim! 🎉 Bir sonraki adımda özellikle veri analitiği ve performans odaklı reklam yönetimi becerilerimi derinleştirerek geliştirmek istiyorum. Bunun yanı sıra yeni reklam platformlarını keşfetmek ve kreatif içerik üretimi konusunda da daha fazla deneyim kazanmak hedeflerim arasında; böylece kampanyaları hem stratejik hem de yaratıcı açıdan daha etkili yönetebilirim."
+    },
+    {
+      "sender": "assistant",
+      "text": "Veri analitiği ve yeni platformları keşfetme konusundaki hedeflerinizi desteklemek için şu anda neler yapıyorsunuz? (Örneğin eğitimler, projeler, denemeler vb.)"
+    },
+    {
+      "sender": "user",
+      "text": "Şu anda veri analitiği becerilerimi güçlendirmek için online kurslar ve sertifika programlarına katılıyorum, özellikle Google Analytics ve veri görselleştirme üzerine odaklanıyorum. Ayrıca kişisel projeler ve küçük çaplı kampanya denemeleri yaparak öğrendiklerimi pratiğe döküyorum. Yeni reklam platformlarını keşfetmek için de sürekli güncel içerikleri takip ediyor, demo hesaplar üzerinden testler yaparak deneyim kazanıyorum."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim."
+    }
+  ],
+  "ending_conversation": [
+    {
+      "sender": "assistant",
+      "text": "Tebrikler, mülakatın temel aşamalarını tamamladınız! Şimdi pozisyon, şirket veya süreç hakkında sorularınız varsa yanıtlamaktan memnuniyet duyarım. Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "sender": "user",
+      "text": "maaş hakkında bilgi almak istiyorum"
+    },
+    {
+      "sender": "assistant",
+      "text": "Aylık maaş aralığı 45.000 – 55.000 TL brüt olarak belirlenmiştir. Başka sorunuz var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "hayir yok"
+    },
+    {
+      "sender": "assistant",
+      "text": "Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler!"
+    }
+  ],
+  "full_conversation": [
+    {
+      "sender": "user",
+      "text": "Hoş bulduk Merhaba"
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Hanım, hoş geldiniz! 😊  \n\nCreativePulse Ajans’ta yürüttüğünüz kampanyalardan hangisi sizin için en keyifli ve öğretici oldu?  \n\nAyrıca, “Dijital Pazarlama Uzmanı” pozisyonumuzda sizi en çok heyecanlandıran veya merak ettiren yön nedir?"
+    },
+    {
+      "sender": "user",
+      "text": "CreativePulse’ta en keyifli ve öğretici bulduğum kampanya, bir e-ticaret markasının dijital satış kampanyasını yönetmekti. Hem müşterilerle birebir iletişim kurmak hem de stratejik olarak satış hedeflerini artırmak bana çok şey öğretti ve oldukça motive etti. “Dijital Pazarlama Uzmanı” pozisyonunda ise en çok heyecanlandıran, farklı dijital kanalları kullanarak etkili kampanyalar geliştirme ve sonuç odaklı performans gösterebilme fırsatı."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika bir deneyim olmuş, gerçekten ilham verici! 🎯  \n\nBu süreçte en çok hangi araç ya da platform sizin için vazgeçilmez oldu? (Örneğin Google Analytics, Meta Business Suite vb.)  \n\nAyrıca, ideal bir çalışma ortamını nasıl tanımlarsınız? Takım içi iletişim ve zaman yönetimi konusunda neler sizi motive eder?"
+    },
+    {
+      "sender": "user",
+      "text": "Teşekkür ederim! 🎯 Bu süreçte benim için vazgeçilmez araçlar Google Analytics ve Meta Business Suite oldu; kampanyaların performansını gerçek zamanlı takip etmek ve veriye dayalı kararlar almak çok işime yaradı. İdeal çalışma ortamım, açık iletişimin ve takım iş birliğinin ön planda olduğu, hedeflerin net olduğu bir ortamdır. Takım içi düzenli geri bildirimler, hızlı bilgi paylaşımı ve net zaman yönetimi beni hem motive eder hem de daha verimli çalışmamı sağlar."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika, bu değerli paylaşımlarınız için teşekkür ederim! 🎉  \nŞimdi, dijital pazarlama alanında bir sonraki adımda özellikle hangi becerileri veya konuları daha da derinleştirerek geliştirmek istersiniz? (Örneğin veri analitiği, yeni reklam platformları, kreatif içerik üretimi vb.)"
+    },
+    {
+      "sender": "user",
+      "text": "Rica ederim! 🎉 Bir sonraki adımda özellikle veri analitiği ve performans odaklı reklam yönetimi becerilerimi derinleştirerek geliştirmek istiyorum. Bunun yanı sıra yeni reklam platformlarını keşfetmek ve kreatif içerik üretimi konusunda da daha fazla deneyim kazanmak hedeflerim arasında; böylece kampanyaları hem stratejik hem de yaratıcı açıdan daha etkili yönetebilirim."
+    },
+    {
+      "sender": "assistant",
+      "text": "Veri analitiği ve yeni platformları keşfetme konusundaki hedeflerinizi desteklemek için şu anda neler yapıyorsunuz? (Örneğin eğitimler, projeler, denemeler vb.)"
+    },
+    {
+      "sender": "user",
+      "text": "Şu anda veri analitiği becerilerimi güçlendirmek için online kurslar ve sertifika programlarına katılıyorum, özellikle Google Analytics ve veri görselleştirme üzerine odaklanıyorum. Ayrıca kişisel projeler ve küçük çaplı kampanya denemeleri yaparak öğrendiklerimi pratiğe döküyorum. Yeni reklam platformlarını keşfetmek için de sürekli güncel içerikleri takip ediyor, demo hesaplar üzerinden testler yaparak deneyim kazanıyorum."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim."
+    },
+    {
+      "sender": "user",
+      "text": "Video bağlantısında teknik sorun var, devam edemiyoruz."
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Kaya, video bağlantısında teknik sorunlar yaşıyoruz. Video mülakat kısmını atlayarak doğrudan değerlendirme testine geçelim."
+    },
+    {
+      "sender": "user",
+      "text": "Video bağlantısında teknik sorun var, devam edemiyoruz."
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Kaya, video bağlantısında teknik sorunlar yaşıyoruz. Video mülakat kısmını atlayarak doğrudan değerlendirme testine geçelim."
+    },
+    {
+      "sender": "user",
+      "text": "maaş hakkında bilgi almak istiyorum"
+    },
+    {
+      "sender": "assistant",
+      "text": "Aylık maaş aralığı 45.000 – 55.000 TL brüt olarak belirlenmiştir. Başka sorunuz var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "hayir yok"
+    },
+    {
+      "sender": "assistant",
+      "text": "Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler!"
+    }
+  ]
+}
