@@ -16,21 +16,23 @@ AI destekli video mülakat ve işe alım platformu. Adayları planlama, sohbet a
 
 - **Frontend**: React + TypeScript + Tailwind CSS + Vite
 - **Backend**: Python + FastAPI + Groq API
-- **AI Model**: openai/gpt-oss-120b
+- **AI Model**: openai/gpt-oss-120b (Groq)
 - **Veri**: JSON tabanlı CV, İş İlanı ve Q&A verileri
 
 ## Kurulum
 
-**Gereksinimler:** Node.js, Python
+**Gereksinimler:** Python 3.8+
 
 1. **Frontend Kurulumu:**
    ```bash
    npm install
    ```
 
-2. **AI Backend Kurulumu:**
+2. **Backend Kurulumu (Python venv ile):**
    ```bash
    cd backend/api
+   python -m venv venv
+   venv\Scripts\activate
    pip install -r requirements.txt
    ```
 
@@ -47,6 +49,7 @@ AI destekli video mülakat ve işe alım platformu. Adayları planlama, sohbet a
 **Terminal 1 - Backend:**
 ```bash
 cd backend/api
+venv\Scripts\activate
 python app.py
 ```
 Backend: http://localhost:5001

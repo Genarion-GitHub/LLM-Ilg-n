@@ -13,10 +13,9 @@ const Interview: React.FC<InterviewProps> = ({ onStartQuiz, sessionId }) => {
     const [isVideoOn, setIsVideoOn] = useState(true);
 
     useEffect(() => {
-        // Interview agent'a video görüşme yapamadığımızı bildir
+        // Interview agent'ı başlat ama otomatik geçiş yapma
         const startInterview = async () => {
             try {
-                // Önce INTERVIEW_STARTED sinyali gönder
                 await fetch('http://localhost:5001/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -26,36 +25,13 @@ const Interview: React.FC<InterviewProps> = ({ onStartQuiz, sessionId }) => {
                     })
                 });
                 console.log('🎥 Interview başladı sinyali gönderildi');
-                
-                // Sonra interview agent'a video sorunu mesajı gönder
-                const response = await fetch('http://localhost:5001/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        sessionId: sessionId,
-                        userMessage: 'Video bağlantısında teknik sorun var, devam edemiyoruz.'
-                    })
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('🎥 Interview agent yanıtı:', data);
-                    
-                    // Eğer INTERVIEW_COMPLETE sinyali geldiyse quiz'e geç
-                    if (data.action === 'START_QUIZ') {
-                        console.log('✅ LLM INTERVIEW_COMPLETE sinyali gönderdi, quiz\'e geçiliyor...');
-                        setTimeout(() => onStartQuiz(), 1000); // 1 saniye bekle
-                    }
-                }
             } catch (error) {
                 console.error('Interview başlatma hatası:', error);
-                // Hata durumunda 3 saniye sonra quiz'e geç
-                setTimeout(() => onStartQuiz(), 3000);
             }
         };
         
         startInterview();
-    }, [onStartQuiz, sessionId]);
+    }, [sessionId]);
 
     const interviewTips = [
         { Icon: LightbulbIcon, text: 'Sessiz ve iyi aydınlatılmış bir ortam seçin. Arka planınızın düzenli ve profesyonel olmasına özen gösterin.' },
