@@ -13,10 +13,10 @@ const Interview: React.FC<InterviewProps> = ({ onStartQuiz, sessionId }) => {
     const [isVideoOn, setIsVideoOn] = useState(true);
 
     useEffect(() => {
-        // Interview agent'ı başlat ama otomatik geçiş yapma
+        // Interview agent'ı başlat ve otomatik quiz geçişini kontrol et
         const startInterview = async () => {
             try {
-                await fetch('http://localhost:5001/api/chat', {
+                const response = await fetch('http://localhost:5001/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -24,7 +24,16 @@ const Interview: React.FC<InterviewProps> = ({ onStartQuiz, sessionId }) => {
                         userMessage: 'INTERVIEW_STARTED'
                     })
                 });
-                console.log('🎥 Interview başladı sinyali gönderildi');
+                const data = await response.json();
+                console.log('🎥 Interview response:', data);
+                
+                // Eğer SHOW_QUIZ action'ı varsa quiz'e geç
+                if (data.action === 'SHOW_QUIZ' || data.action === 'START_QUIZ') {
+                    console.log('✅ Auto-starting quiz from interview');
+                    setTimeout(() => {
+                        onStartQuiz();
+                    }, 2000); // 2 saniye bekle
+                }
             } catch (error) {
                 console.error('Interview başlatma hatası:', error);
             }

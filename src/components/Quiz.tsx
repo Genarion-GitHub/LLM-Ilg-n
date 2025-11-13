@@ -146,9 +146,21 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (loading) {
         return (
             <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-gray-200 rounded-2xl shadow-lg flex flex-col justify-center items-center text-gray-500 p-8">
-                    <VideoOffIcon className="w-24 h-24 mb-4" />
-                    <h3 className="text-2xl font-semibold">Görüşme tamamlandı</h3>
+                <div className="lg:col-span-2 bg-black rounded-2xl shadow-xl overflow-hidden relative flex flex-col justify-center items-center">
+                    <div className="w-full h-full bg-gradient-to-br from-[#58b0b8] to-[#4a9ca4] flex items-center justify-center">
+                        <img src="/assets/logo.png" alt="Company Logo" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="absolute top-4 right-4 w-40 h-32 rounded-lg overflow-hidden border-2 border-white shadow-lg">
+                        <div className="w-full h-full bg-gray-800 text-white flex items-center justify-center p-2 text-center text-xs">
+                            <p>Kamera kapalı</p>
+                        </div>
+                        <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm font-semibold">
+                            Aday
+                        </div>
+                    </div>
+                    <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1.5 rounded-lg text-lg font-semibold">
+                        Genarion AI
+                    </div>
                 </div>
                 <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col justify-center items-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#58b0b8]"></div>
@@ -161,9 +173,21 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (error || quizData.length === 0) {
         return (
             <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-gray-200 rounded-2xl shadow-lg flex flex-col justify-center items-center text-gray-500 p-8">
-                    <VideoOffIcon className="w-24 h-24 mb-4" />
-                    <h3 className="text-2xl font-semibold">Görüşme tamamlandı</h3>
+                <div className="lg:col-span-2 bg-black rounded-2xl shadow-xl overflow-hidden relative flex flex-col justify-center items-center">
+                    <div className="w-full h-full bg-gradient-to-br from-[#58b0b8] to-[#4a9ca4] flex items-center justify-center">
+                        <img src="/assets/logo.png" alt="Company Logo" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="absolute top-4 right-4 w-40 h-32 rounded-lg overflow-hidden border-2 border-white shadow-lg">
+                        <div className="w-full h-full bg-gray-800 text-white flex items-center justify-center p-2 text-center text-xs">
+                            <p>Kamera kapalı</p>
+                        </div>
+                        <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm font-semibold">
+                            Aday
+                        </div>
+                    </div>
+                    <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1.5 rounded-lg text-lg font-semibold">
+                        Genarion AI
+                    </div>
                 </div>
                 <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col justify-center items-center">
                     <p className="text-red-600 mb-4">{error}</p>
@@ -180,10 +204,22 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
     return (
         <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Placeholder for Video */}
-            <div className="lg:col-span-2 bg-gray-200 rounded-2xl shadow-lg flex flex-col justify-center items-center text-gray-500 p-8">
-                <VideoOffIcon className="w-24 h-24 mb-4" />
-                <h3 className="text-2xl font-semibold">Görüşme tamamlandı</h3>
+            {/* Video Section */}
+            <div className="lg:col-span-2 bg-black rounded-2xl shadow-xl overflow-hidden relative flex flex-col justify-center items-center">
+                <div className="w-full h-full bg-gradient-to-br from-[#58b0b8] to-[#4a9ca4] flex items-center justify-center">
+                    <img src="/assets/logo.png" alt="Company Logo" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute top-4 right-4 w-40 h-32 rounded-lg overflow-hidden border-2 border-white shadow-lg">
+                    <div className="w-full h-full bg-gray-800 text-white flex items-center justify-center p-2 text-center text-xs">
+                        <p>Kamera kapalı</p>
+                    </div>
+                    <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white px-2 py-1 text-sm font-semibold">
+                        Aday
+                    </div>
+                </div>
+                <div className="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1.5 rounded-lg text-lg font-semibold">
+                    Genarion AI
+                </div>
             </div>
 
             {/* Quiz Section */}

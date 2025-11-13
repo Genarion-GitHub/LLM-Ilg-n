@@ -79,6 +79,25 @@ async def handle_chat(request: ChatRequest):
 
     if user_message == "INTERVIEW_STARTED":
         session["stage"] = "interview"
+        # Interview agent'ı çağır ve karar vermesini sağla
+        response_text = await interview_agent(client, "", "Video başladı", cv_data, job_ad_data)
+        print(f"🔍 Interview Agent Decision: '{response_text}'")
+        
+        if "INTERVIEW_COMPLETE" in response_text:
+            print("✅ Interview Agent decided to start quiz")
+            response_text = response_text.replace("INTERVIEW_COMPLETE", "").strip()
+            quiz_data = await quiz_agent(client, qna_data, job_ad_data)
+            action = "SHOW_QUIZ"
+            session["stage"] = "quiz"
+            return {
+                "response": response_text, 
+                "action": action, 
+                "quiz_data": quiz_data,
+                "conversation_history": session["full_conversation"]
+            }
+        else:
+            print("❌ Interview Agent did not decide to start quiz")
+            return {"response": response_text, "action": None, "conversation_history": session["full_conversation"]}
     elif user_message == "QUIZ_COMPLETED":
         session["stage"] = "ending"
         response_text = await ending_agent(client, "", "", qna_data)
@@ -92,10 +111,14 @@ async def handle_chat(request: ChatRequest):
             session["stage"] = "interview"
     elif stage == "interview":
         response_text = await interview_agent(client, history_str, user_message, cv_data, job_ad_data)
+        print(f"🔍 Interview Agent Response: {response_text}")
         if "INTERVIEW_COMPLETE" in response_text:
+            print("✅ INTERVIEW_COMPLETE detected, starting quiz")
             response_text = response_text.replace("INTERVIEW_COMPLETE", "").strip()
             action = "START_QUIZ"
             session["stage"] = "quiz"
+        else:
+            print("❌ INTERVIEW_COMPLETE not found in response")
     elif stage == "ending":
         ending_history_str = "\n".join([f"{'Aday' if msg['sender']=='user' else 'Asistan'}: {msg['text']}" for msg in session["ending_conversation"]])
         response_text = await ending_agent(client, ending_history_str, user_message, qna_data)
@@ -143,7 +166,9 @@ async def save_transcript(request: ChatRequest):
 
 @app.post('/api/agents/quiz')
 async def handle_quiz_agent_route():
-    return await quiz_agent(client, qna_data, job_ad_data)
+    quiz_data = await quiz_agent(client, qna_data, job_ad_data)
+    print(f"🧠 Quiz data generated: {len(quiz_data.get('questions', []))} questions")
+    return quiz_data
 
 class QuizResultsRequest(BaseModel):
     sessionId: str

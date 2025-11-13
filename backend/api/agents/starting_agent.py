@@ -1,4 +1,5 @@
 import json
+import asyncio
 from groq import Groq
 
 async def starting_agent(client: Groq, conversation_history: str, user_message: str, cv_data: dict, job_ad_data: dict) -> dict:
@@ -48,34 +49,55 @@ CANDIDATE'S LAST MESSAGE: "{user_message}"
 
 Respond in Turkish with appropriate warm-up conversation:"""
 
-    try:
-        chat_completion = await client.chat.completions.create(
-            messages=[{"role": "user", "content": prompt}],
-            model="openai/gpt-oss-120b",
-            temperature=0.7,
-            max_tokens=500
-        )
-        response_text = chat_completion.choices[0].message.content
-        
-        # Boş yanıt kontrolü
-        if not response_text or not response_text.strip():
-            print("⚠️ Starting Agent: Boş yanıt alındı, fallback kullanılıyor")
-            response_text = f"Anladım, teşekkürler! Peki {cv_data.get('name', 'Aday')}, bu pozisyonda sizi en çok heyecanlandıran yön nedir?"
-        
-        print(f"🟢 Starting Agent Raw Response: {response_text}")
+    # Retry mekanizması - 2 kez dene
+    for attempt in range(2):
+        try:
+            print(f"📤 Starting Agent: API çağrısı yapılıyor... (Deneme {attempt + 1})")
+            chat_completion = await client.chat.completions.create(
+                messages=[{"role": "user", "content": prompt}],
+                model="openai/gpt-oss-120b",
+                temperature=0.7,
+                max_tokens=1024
+            )
+            # Detaylı loglama
+            print(f"🔍 Finish Reason: {chat_completion.choices[0].finish_reason}")
+            print(f"🔍 Usage: {chat_completion.usage}")
+            
+            response_text = chat_completion.choices[0].message.content
+            print(f"📥 Starting Agent: API yanıtı alındı: '{response_text}'")
+            print(f"🔍 Content Length: {len(response_text or '')}")
+            
+            # Token limiti kontrolü
+            if chat_completion.choices[0].finish_reason == "length":
+                print("⚠️ Token limiti aşıldı!")
+            
+            # Boş yanıt kontrolü - boş değilse başarılı
+            if response_text and response_text.strip():
+                print(f"🟢 Starting Agent Raw Response: {response_text}")
+                is_complete = "START_INTERVIEW" in response_text
+                cleaned_response = response_text.replace("START_INTERVIEW", "").strip()
+                return {
+                    "response": cleaned_response,
+                    "is_complete": is_complete
+                }
+            else:
+                print(f"⚠️ Starting Agent: Boş yanıt (Deneme {attempt + 1})")
+                if attempt == 0:  # İlk deneme başarısız, kısa bekle
+                    await asyncio.sleep(0.3)
+        except Exception as e:
+            print(f"❌ Starting Agent Error (Deneme {attempt + 1}): {e}")
+            if attempt == 0:  # İlk deneme başarısız, kısa bekle
+                await asyncio.sleep(0.3)
+    
+    # Tüm denemeler başarısız - fallback
+    print("⚠️ Starting Agent: Tüm denemeler başarısız, fallback kullanılıyor")
+    response_text = f"Anladım, teşekkürler! Peki {cv_data.get('name', 'Aday')}, bu pozisyonda sizi en çok heyecanlandıran yön nedir?"
+    print(f"🟢 Starting Agent Raw Response: {response_text}")
 
-        is_complete = "START_INTERVIEW" in response_text
-        cleaned_response = response_text.replace("START_INTERVIEW", "").strip()
-        
-        return {
-            "response": cleaned_response,
-            "is_complete": is_complete
-        }
-    except Exception as e:
-        print(f"❌ Starting Agent Error: {e}")
-        import traceback
-        traceback.print_exc()
-        return {
-            "response": f"Anladım, teşekkürler! Peki {cv_data.get('name', 'Aday')}, bu pozisyonda sizi en çok heyecanlandıran yön nedir?",
-            "is_complete": False
-        }
+    is_complete = "START_INTERVIEW" in response_text
+    cleaned_response = response_text.replace("START_INTERVIEW", "").strip()
+    
+    return {
+        "response": cleaned_response,
+        "is_complete": is_complete
+    }
