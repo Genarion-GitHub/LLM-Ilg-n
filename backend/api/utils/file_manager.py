@@ -1,35 +1,52 @@
 import os
 import json
 from datetime import datetime
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from core.config import DATA_PATH
 
 class FileManager:
-    def __init__(self):
-        self.data_path = DATA_PATH
-        self.company_folder = os.path.join(self.data_path, "GENAR")
+    def __init__(self, base_dir="data"):
+        self.base_dir = base_dir
         
-    def create_candidate_folder(self, job_id: str, candidate_data: dict):
-        """
-        Aday başvurduğunda otomatik klasör yapısı oluşturur
-        """
-        # Job klasörü yolu
-        job_folder = os.path.join(self.company_folder, f"Genar-{job_id}")
+    def get_job_data(self, company_id: str, job_id: str, data_type: str):
+        """Job verilerini okur (JobAd, Q&A, Quiz)"""
+        file_path = os.path.join(self.base_dir, company_id, job_id, f"{data_type}.json")
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {}
+    
+    def get_candidate_data(self, company_id: str, job_id: str, candidate_id: str, data_type: str):
+        """Aday verilerini okur"""
+        file_path = os.path.join(self.base_dir, company_id, job_id, candidate_id, f"{data_type}.json")
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return None
+    
+    def save_candidate_data(self, company_id: str, job_id: str, candidate_id: str, data_type: str, data: dict):
+        """Aday verilerini kaydeder"""
+        candidate_folder = os.path.join(self.base_dir, company_id, job_id, candidate_id)
+        os.makedirs(candidate_folder, exist_ok=True)
+        
+        file_path = os.path.join(candidate_folder, f"{data_type}.json")
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    
+    def create_candidate_folder(self, company_id: str, job_id: str, candidate_data: dict):
+        """Yeni aday klasörü oluşturur"""
+        job_folder = os.path.join(self.base_dir, company_id, job_id)
         
         # Mevcut aday sayısını bul
         candidate_count = self._get_next_candidate_number(job_folder)
-        candidate_id = f"Genar-{job_id}-{candidate_count:05d}"
+        candidate_id = f"{job_id}-{candidate_count:05d}"
         
         # Aday klasörü oluştur
         candidate_folder = os.path.join(job_folder, candidate_id)
         os.makedirs(candidate_folder, exist_ok=True)
         
-        # CV extraction JSON oluştur
-        cv_extraction_path = os.path.join(candidate_folder, "cv_extraction.json")
-        with open(cv_extraction_path, 'w', encoding='utf-8') as f:
-            json.dump(candidate_data, f, ensure_ascii=False, indent=2)
+        # CV extraction kaydet
+        self.save_candidate_data(company_id, job_id, candidate_id, "cv_extraction", candidate_data)
         
         # Interview list güncelle
         self._update_interview_list(job_folder, candidate_id, candidate_data)
@@ -72,15 +89,3 @@ class FileManager:
         # Dosyayı kaydet
         with open(interview_list_path, 'w', encoding='utf-8') as f:
             json.dump(interview_list, f, ensure_ascii=False, indent=2)
-    
-    def save_interview_results(self, candidate_folder: str, interview_data: dict):
-        """Mülakat sonuçlarını kaydeder"""
-        interview_path = os.path.join(candidate_folder, "Interview.json")
-        with open(interview_path, 'w', encoding='utf-8') as f:
-            json.dump(interview_data, f, ensure_ascii=False, indent=2)
-    
-    def save_interview_report(self, candidate_folder: str, report_data: dict):
-        """Mülakat raporunu kaydeder"""
-        report_path = os.path.join(candidate_folder, "Interview_report.json")
-        with open(report_path, 'w', encoding='utf-8') as f:
-            json.dump(report_data, f, ensure_ascii=False, indent=2)

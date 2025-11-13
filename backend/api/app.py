@@ -11,6 +11,7 @@ from agents.starting_agent import starting_agent
 from agents.interview_agent import interview_agent
 from agents.quiz_agent import quiz_agent
 from agents.ending_agent import ending_agent
+from utils.file_manager import FileManager
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 load_dotenv(os.path.join(base_dir, '.env'))
@@ -30,15 +31,29 @@ if not groq_api_key:
     raise ValueError("GROQ_API_KEY bulunamadı")
 
 client = AsyncGroq(api_key=groq_api_key)
+file_manager = FileManager(base_dir="data")
 
-def load_json_data(filename):
-    try:
-        with open(os.path.join(base_dir, 'data', filename), 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return {}
+# Sabit değerler
+COMPANY_ID = "GENAR"
+JOB_ID = "Genar-00001"
 
-cv_data = load_json_data('cv.json')
+def load_json_data(filename, candidate_id=None):
+    # Dinamik FileManager kullan
+    if filename == 'jobad.json':
+        return file_manager.get_job_data(COMPANY_ID, JOB_ID, "JobAd")
+    elif filename == 'qna.json':
+        return file_manager.get_job_data(COMPANY_ID, JOB_ID, "Q&A")
+    elif filename == 'cv.json' and candidate_id:
+        # Belirli adayın verilerini al
+        return file_manager.get_candidate_data(COMPANY_ID, JOB_ID, candidate_id, "cv_extraction") or {}
+    else:
+        try:
+            with open(os.path.join(base_dir, 'data', filename), 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {}
+
+# Global veriler - session bazlı yüklenecek
 job_ad_data = load_json_data('jobad.json')
 qna_data = load_json_data('qna.json')
 
@@ -51,8 +66,16 @@ sessions: Dict[str, Dict[str, Any]] = {}
 def get_session(session_id: str):
     if session_id not in sessions:
         stage = "ending" if "ending" in session_id or "post-quiz" in session_id else "interview" if "interview" in session_id else "starting"
+        # Session ID'den candidate ID'yi çıkar (format: sessionId-candidateId)
+        candidate_id = f"{JOB_ID}-00001"  # Varsayılan
+        if "-" in session_id:
+            parts = session_id.split("-")
+            if len(parts) >= 3:
+                candidate_id = f"{JOB_ID}-{parts[-1].zfill(5)}"
+        
         sessions[session_id] = {
             "stage": stage,
+            "candidate_id": candidate_id,
             "full_conversation": [],
             "starting_conversation": [],
             "ending_conversation": []
@@ -79,8 +102,9 @@ async def handle_chat(request: ChatRequest):
 
     if user_message == "INTERVIEW_STARTED":
         session["stage"] = "interview"
-        # Interview agent'ı çağır ve karar vermesini sağla
-        response_text = await interview_agent(client, "", "Video başladı", cv_data, job_ad_data)
+        # Dinamik CV verisi yükle
+        candidate_cv = load_json_data('cv.json', session.get('candidate_id'))
+        response_text = await interview_agent(client, "", "Video başladı", candidate_cv, job_ad_data)
         print(f"🔍 Interview Agent Decision: '{response_text}'")
         
         if "INTERVIEW_COMPLETE" in response_text:
@@ -104,13 +128,17 @@ async def handle_chat(request: ChatRequest):
         if response_text:
             session["ending_conversation"].append({"sender": "assistant", "text": response_text})
     elif stage == "starting":
-        agent_result = await starting_agent(client, history_str, user_message, cv_data, job_ad_data)
+        # Dinamik CV verisi yükle
+        candidate_cv = load_json_data('cv.json', session.get('candidate_id'))
+        agent_result = await starting_agent(client, history_str, user_message, candidate_cv, job_ad_data)
         response_text = agent_result.get("response", "")
         if agent_result.get("is_complete"):
             action = "START_INTERVIEW"
             session["stage"] = "interview"
     elif stage == "interview":
-        response_text = await interview_agent(client, history_str, user_message, cv_data, job_ad_data)
+        # Dinamik CV verisi yükle
+        candidate_cv = load_json_data('cv.json', session.get('candidate_id'))
+        response_text = await interview_agent(client, history_str, user_message, candidate_cv, job_ad_data)
         print(f"🔍 Interview Agent Response: {response_text}")
         if "INTERVIEW_COMPLETE" in response_text:
             print("✅ INTERVIEW_COMPLETE detected, starting quiz")
@@ -166,7 +194,11 @@ async def save_transcript(request: ChatRequest):
 
 @app.post('/api/agents/quiz')
 async def handle_quiz_agent_route():
-    quiz_data = await quiz_agent(client, qna_data, job_ad_data)
+    # Yeni yapıdan veri al
+    qna_data = file_manager.get_job_data(COMPANY_ID, JOB_ID, "Q&A")
+    job_data = file_manager.get_job_data(COMPANY_ID, JOB_ID, "JobAd")
+    
+    quiz_data = await quiz_agent(client, qna_data, job_data)
     print(f"🧠 Quiz data generated: {len(quiz_data.get('questions', []))} questions")
     return quiz_data
 
@@ -175,6 +207,10 @@ class QuizResultsRequest(BaseModel):
     score: int
     totalQuestions: int
     results: list
+
+class CandidateApplicationRequest(BaseModel):
+    job_id: str
+    candidate_data: dict
 
 @app.post('/api/save-quiz-results')
 async def save_quiz_results(request: QuizResultsRequest):
@@ -195,6 +231,54 @@ async def save_quiz_results(request: QuizResultsRequest):
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post('/api/candidate/apply')
+async def candidate_apply(request: CandidateApplicationRequest):
+    """Aday başvuru endpoint'i - otomatik klasör oluşturur"""
+    try:
+        candidate_folder = file_manager.create_candidate_folder(
+            COMPANY_ID,
+            f"Genar-{request.job_id}", 
+            request.candidate_data
+        )
+        
+        return {
+            "status": "success",
+            "message": "Başvuru başarıyla alındı",
+            "candidate_folder": candidate_folder
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post('/api/candidate/save')
+async def save_candidate_data_endpoint(request: dict):
+    """Aday verilerini kaydet"""
+    try:
+        candidate_id = request.get("candidate_id", f"{JOB_ID}-00001")
+        data_type = request.get("type")
+        data = request.get("data")
+        
+        file_manager.save_candidate_data(
+            COMPANY_ID, 
+            JOB_ID, 
+            candidate_id, 
+            data_type, 
+            data
+        )
+        
+        return {"status": "saved"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get('/api/job')
+async def get_job():
+    """Job ad verilerini getir"""
+    return file_manager.get_job_data(COMPANY_ID, JOB_ID, "JobAd")
+
+@app.get('/api/qa')
+async def get_qa():
+    """Q&A verilerini getir"""
+    return file_manager.get_job_data(COMPANY_ID, JOB_ID, "Q&A")
 
 if __name__ == '__main__':
     import uvicorn

@@ -1,0 +1,11 @@
+{
+  "personal_info": {
+    "email": "ahmet@test.com"
+  },
+  "name": "Ahmet Yilmaz",
+  "experience": [
+    {
+      "company": "XYZ Sirket"
+    }
+  ]
+}
