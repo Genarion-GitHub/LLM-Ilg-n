@@ -1,0 +1,154 @@
+{
+  "session_id": "00001-00001",
+  "timestamp": "2025-11-13T17:49:06.116318",
+  "starting_conversation": [
+    {
+      "sender": "user",
+      "text": "merhaba"
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Hanım, hoş geldiniz! CreativePulse Ajans’ta yürüttüğünüz bir kampanyadan, özellikle en çok keyif aldığınız ya da gurur duyduğunuz bir deneyimi bizimle paylaşır mısınız?"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Anladım, bazen kelimeler bir anda kaybolabiliyor. 😊 Belki başka bir kampanyadan bahsetmek istersiniz? CreativePulse’te yürüttüğünüz bir proje sırasında, ekip içinde nasıl bir iletişim ve iş birliği deneyimi yaşadınız?"
+    },
+    {
+      "sender": "user",
+      "text": "''"
+    },
+    {
+      "sender": "assistant",
+      "text": "CreativePulse’te çalışırken, dijital pazarlama dünyasındaki hangi trend ya da yenilik sizi en çok heyecanlandırıyor ve gelecekte denemek istediğiniz bir şey var mı? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika, bazen düşüncelerimizi toparlamak zor olabiliyor, hiç sorun değil 😊. Sizin gibi yaratıcı bir uzmanın, bir kampanyanın başarısını ölçerken en çok hangi performans metriğine odaklandığını merak ediyorum. Bu metriği izlerken neler yapıyorsunuz?"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu rolde, özellikle Google Ads ve Meta kampanyalarını yönetmekten bahsediyoruz. Sizi en çok heyecanlandıran ya da merak ettiğiniz bir yönü var mı? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika, son bir sorum daha var: İdeal bir çalışma ortamını nasıl tanımlarsınız? Özellikle takım içi iletişim ve yaratıcı süreçlerde nelere önem verirsiniz?"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim."
+    }
+  ],
+  "ending_conversation": [
+    {
+      "sender": "user",
+      "text": "maas"
+    },
+    {
+      "sender": "assistant",
+      "text": "Belirlenen bütçe aralığı aylık 45.000 – 55.000 TL brüt olup, performansa dayalı prim sistemi de mevcuttur.\n\nBaşka sorunuz yoksa, eklemek istediğiniz herhangi bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "yok"
+    },
+    {
+      "sender": "assistant",
+      "text": "Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler!"
+    }
+  ],
+  "full_conversation": [
+    {
+      "sender": "user",
+      "text": "merhaba"
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Hanım, hoş geldiniz! CreativePulse Ajans’ta yürüttüğünüz bir kampanyadan, özellikle en çok keyif aldığınız ya da gurur duyduğunuz bir deneyimi bizimle paylaşır mısınız?"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Anladım, bazen kelimeler bir anda kaybolabiliyor. 😊 Belki başka bir kampanyadan bahsetmek istersiniz? CreativePulse’te yürüttüğünüz bir proje sırasında, ekip içinde nasıl bir iletişim ve iş birliği deneyimi yaşadınız?"
+    },
+    {
+      "sender": "user",
+      "text": "''"
+    },
+    {
+      "sender": "assistant",
+      "text": "CreativePulse’te çalışırken, dijital pazarlama dünyasındaki hangi trend ya da yenilik sizi en çok heyecanlandırıyor ve gelecekte denemek istediğiniz bir şey var mı? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika, bazen düşüncelerimizi toparlamak zor olabiliyor, hiç sorun değil 😊. Sizin gibi yaratıcı bir uzmanın, bir kampanyanın başarısını ölçerken en çok hangi performans metriğine odaklandığını merak ediyorum. Bu metriği izlerken neler yapıyorsunuz?"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu rolde, özellikle Google Ads ve Meta kampanyalarını yönetmekten bahsediyoruz. Sizi en çok heyecanlandıran ya da merak ettiğiniz bir yönü var mı? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika, son bir sorum daha var: İdeal bir çalışma ortamını nasıl tanımlarsınız? Özellikle takım içi iletişim ve yaratıcı süreçlerde nelere önem verirsiniz?"
+    },
+    {
+      "sender": "user",
+      "text": "'"
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim."
+    },
+    {
+      "sender": "user",
+      "text": "maas"
+    },
+    {
+      "sender": "assistant",
+      "text": "Belirlenen bütçe aralığı aylık 45.000 – 55.000 TL brüt olup, performansa dayalı prim sistemi de mevcuttur.\n\nBaşka sorunuz yoksa, eklemek istediğiniz herhangi bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "yok"
+    },
+    {
+      "sender": "assistant",
+      "text": "Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler!"
+    }
+  ]
+}

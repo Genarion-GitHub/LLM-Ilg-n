@@ -8,22 +8,14 @@ class FileManager:
         
     def get_job_data(self, company_id: str, job_id: str, data_type: str):
         """Job verilerini okur (JobAd, Q&A, Quiz)"""
-        file_path = os.path.join(self.base_dir, company_id, job_id, f"{data_type}.json")
+        file_path = os.path.join(self.base_dir, job_id, f"{data_type}.json")
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
         except FileNotFoundError:
             return {}
     
-    def get_candidate_data(self, company_id: str, job_id: str, candidate_id: str, data_type: str):
-        """Aday verilerini okur"""
-        file_path = os.path.join(self.base_dir, company_id, job_id, candidate_id, f"{data_type}.json")
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return None
-    
+
     def save_candidate_data(self, company_id: str, job_id: str, candidate_id: str, data_type: str, data: dict):
         """Aday verilerini kaydeder"""
         candidate_folder = os.path.join(self.base_dir, company_id, job_id, candidate_id)
@@ -89,3 +81,61 @@ class FileManager:
         # Dosyayı kaydet
         with open(interview_list_path, 'w', encoding='utf-8') as f:
             json.dump(interview_list, f, ensure_ascii=False, indent=2)
+    
+    def _get_paths_from_id(self, candidate_id: str):
+        """Candidate ID'den ilan ve aday klasör yollarını çıkarır"""
+        # Genar-00001-00001 -> ["Genar", "00001", "00001"]
+        parts = candidate_id.split("-")
+        if len(parts) < 3:
+            raise ValueError(f"Invalid candidate_id format: {candidate_id}")
+        
+        # İlan kodu: Genar-00001
+        job_id = f"{parts[0]}-{parts[1]}"
+        
+        # Yolları oluştur (GENAR zaten base_dir'de)
+        job_folder = os.path.join(self.base_dir, job_id)
+        candidate_folder = os.path.join(job_folder, candidate_id)
+        
+        return job_folder, candidate_folder
+    
+    def get_candidate_file_path(self, candidate_id: str, file_name: str):
+        """Adayın belirli dosyasının tam yolunu döndürür"""
+        try:
+            _, candidate_folder = self._get_paths_from_id(candidate_id)
+            file_path = os.path.join(candidate_folder, file_name)
+            
+            if os.path.exists(file_path):
+                return file_path
+            return None
+        except Exception:
+            return None
+    
+    def get_candidate_data(self, candidate_id: str, file_name: str):
+        """Adayın JSON dosyasını okur ve dictionary döndürür"""
+        file_path = self.get_candidate_file_path(candidate_id, file_name)
+        
+        if not file_path:
+            return {}
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return {}
+    
+    def get_all_candidate_files(self, candidate_id: str):
+        """Adayın klasöründeki tüm dosyaları listeler"""
+        try:
+            _, candidate_folder = self._get_paths_from_id(candidate_id)
+            
+            if not os.path.exists(candidate_folder):
+                return []
+            
+            # Sadece dosyaları al, klasörleri değil
+            all_items = os.listdir(candidate_folder)
+            files = [item for item in all_items 
+                    if os.path.isfile(os.path.join(candidate_folder, item))]
+            
+            return files
+        except Exception:
+            return []

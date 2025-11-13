@@ -6,6 +6,10 @@ async def starting_agent(client: Groq, conversation_history: str, user_message: 
     """
     Bu ajan, her zaman bir dictionary döndürür: {"response": str, "is_complete": bool}
     """
+    # Debug: Conversation history'yi kontrol et
+    print(f"🔍 Starting Agent Conversation History: '{conversation_history}'")
+    print(f"🔍 Starting Agent User Message: '{user_message}'")
+    
     # Eğer sohbet geçmişi boşsa ve kullanıcıdan bir mesaj gelmediyse, bu ilk etkileşimdir.
     if not conversation_history.strip() and not user_message.strip():
         response_text = f"Merhaba {cv_data.get('name', 'Aday')}! Ben şirketin işe alım uzmanıyım. Asıl mülakata geçmeden önce sizi tanımak için kısa bir sohbet yapalım. Hazır olduğunuzda başlayabiliriz."
@@ -36,8 +40,10 @@ BEHAVIORAL RULES:
 - Use only information available in the provided JSON data.
 
 CRITICAL TRANSITION RULE:
-- When you decide the warm-up is complete (after 4-6 questions) or the candidate states they are ready, your final message MUST be: "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim. START_INTERVIEW"
+- Count the number of questions you have asked by looking at the conversation history. If you see 4 or more assistant messages (questions), you MUST transition.
+- When the warm-up is complete (after 4+ questions) or the candidate states they are ready, your final message MUST be: "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim. START_INTERVIEW"
 - **CRITICAL**: You MUST add "START_INTERVIEW" to your very last message to trigger the next phase. Do not use it before.
+- **IMPORTANT**: Look at the conversation history - if there are already 4+ exchanges, END WITH START_INTERVIEW NOW.
 
 CV DATA: {json.dumps(cv_data, ensure_ascii=False)}
 JOB AD DATA: {json.dumps(job_ad_data, ensure_ascii=False)}

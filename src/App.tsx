@@ -20,7 +20,8 @@ const UserAvatar: React.FC = () => (
 
 const App: React.FC = () => {
     const [page, setPage] = useState<Page>('scheduling');
-    const sessionIdRef = useRef<string>(uuidv4());
+    // Dinamik session ID: jobId-candidateId formatı
+    const sessionIdRef = useRef<string>('00001-00001'); // İlan 1, Aday 1 (Melis Kaya)
     const [isLoaded, setIsLoaded] = useState(false);
     const [quizScore, setQuizScore] = useState(0);
     const [isQuizDone, setIsQuizDone] = useState(false);
@@ -81,6 +82,11 @@ const App: React.FC = () => {
         // Mülakat yeniden başladığında eski verileri temizle
         localStorage.removeItem('preInterviewChat');
         localStorage.removeItem('quizResults');
+        // Yeni session ID oluştur (farklı aday için)
+        const currentId = sessionIdRef.current.split('-');
+        const newCandidateId = String(parseInt(currentId[1]) + 1).padStart(5, '0');
+        sessionIdRef.current = `${currentId[0]}-${newCandidateId}`;
+        console.log(`🆕 Yeni session ID: ${sessionIdRef.current}`);
         setPage('scheduling');
     };
 

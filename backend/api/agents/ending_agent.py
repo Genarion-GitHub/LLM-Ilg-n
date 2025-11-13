@@ -43,11 +43,25 @@ CANDIDATE'S LAST MESSAGE: "{user_message}"
 
 Now, respond in Turkish based on the rules and flow:"""
 
-    chat_completion = await client.chat.completions.create(
-        messages=[{"role": "user", "content": prompt}],
-        model="openai/gpt-oss-120b",
-    )
-    
-    response = chat_completion.choices[0].message.content
-    print(f"🟣 Ending Agent Raw Response: {response}")
-    return response
+    try:
+        print(f"🟣 Ending Agent: API çağrısı yapılıyor...")
+        chat_completion = await client.chat.completions.create(
+            messages=[{"role": "user", "content": prompt}],
+            model="openai/gpt-oss-120b",
+            temperature=0.3,
+            max_tokens=500
+        )
+        
+        response = chat_completion.choices[0].message.content
+        print(f"🟣 Ending Agent Raw Response: '{response}'")
+        
+        # Eğer "yok", "hayır", "teşekkürler" gibi kapanış ifadeleri varsa zorla POST_INTERVIEW_COMPLETE ekle
+        closing_words = ["yok", "hayır", "teşekkürler", "tamamdır", "bitsin"]
+        if any(word in user_message.lower() for word in closing_words) and "POST_INTERVIEW_COMPLETE" not in response:
+            response += " POST_INTERVIEW_COMPLETE"
+            print("✅ Ending Agent: Zorla POST_INTERVIEW_COMPLETE eklendi")
+        
+        return response
+    except Exception as e:
+        print(f"❌ Ending Agent Error: {e}")
+        return f"Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler! POST_INTERVIEW_COMPLETE"
