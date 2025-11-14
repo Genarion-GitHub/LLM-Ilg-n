@@ -1,0 +1,14 @@
+[
+  {
+    "soru": "Hangi pozisyona çalışan arıyorsunuz?",
+    "cevap": "Yazılım Geliştirici"
+  },
+  {
+    "soru": "Bu pozisyon için hangi teknolojiler kullanılıyor?",
+    "cevap": "React, Node.js, JavaScript, MongoDB"
+  },
+  {
+    "soru": "Çalışma şartları nedir?",
+    "cevap": "Tam uzaktan çalışma imkanı"
+  }
+]

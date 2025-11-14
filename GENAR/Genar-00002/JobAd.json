@@ -1,0 +1,14 @@
+{
+  "position": "Yazılım Geliştirici",
+  "job_description": "Full-stack web uygulamaları geliştiren deneyimli yazılım geliştirici aranıyor.",
+  "responsibilities": [
+    "React ve Node.js ile web uygulaması geliştirme",
+    "API tasarımı ve veritabanı yönetimi",
+    "Kod kalitesi ve test süreçlerinin yönetimi"
+  ],
+  "requirements": [
+    "Bilgisayar Mühendisliği veya ilgili bölümlerden mezun",
+    "JavaScript, React, Node.js deneyimi",
+    "En az 2 yıl yazılım geliştirme deneyimi"
+  ]
+}

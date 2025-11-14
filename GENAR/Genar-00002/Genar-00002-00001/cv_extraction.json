@@ -1,0 +1,37 @@
+{
+  "name": "Ahmet Yılmaz",
+  "personal_info": {
+    "email": "ahmet.yilmaz@email.com",
+    "phone": "+90 555 123 4567",
+    "location": "İstanbul, Türkiye"
+  },
+  "experience": [
+    {
+      "position": "Yazılım Geliştirici",
+      "company": "TechCorp",
+      "duration": "2021-2023",
+      "description": "Full-stack web uygulamaları geliştirme, React ve Node.js kullanımı"
+    },
+    {
+      "position": "Junior Developer",
+      "company": "StartupXYZ",
+      "duration": "2020-2021",
+      "description": "Frontend geliştirme, JavaScript ve HTML/CSS"
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bilgisayar Mühendisliği",
+      "school": "İstanbul Teknik Üniversitesi",
+      "year": "2020"
+    }
+  ],
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "Python",
+    "SQL",
+    "Git"
+  ]
+}

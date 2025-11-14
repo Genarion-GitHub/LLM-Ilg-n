@@ -32,25 +32,23 @@ if not groq_api_key:
 client = AsyncGroq(api_key=groq_api_key)
 
 # .env'den veri yollarını al
-DATA_PATH = os.getenv("DATA_PATH", "data")
+DATA_PATH = os.getenv("DATA_PATH", "../../GENAR")
 COMPANY_ID = os.getenv("COMPANY_ID", "GENAR")
 JOB_ID = os.getenv("DEFAULT_JOB_ID", "Genar-00001")
 
 file_manager = FileManager(base_dir=DATA_PATH)
 
-def load_json_data(filename, candidate_id=None, job_id=None):
-    if filename == 'jobad.json' and job_id:
-        return file_manager.get_job_data("", job_id, "JobAd")
-    elif filename == 'qna.json' and job_id:
-        return file_manager.get_job_data("", job_id, "Q&A")
-    elif filename == 'cv.json' and candidate_id:
-        return file_manager.get_candidate_data(candidate_id, "cv_extraction.json") or {}
-    else:
-        if filename == 'jobad.json':
-            return file_manager.get_job_data("", JOB_ID, "JobAd")
-        elif filename == 'qna.json':
-            return file_manager.get_job_data("", JOB_ID, "Q&A")
-        return {}
+def load_json_data(filename: str, job_id: str, candidate_id: str):
+    """
+    Dosya okumak için HEM job_id HEM de candidate_id gerekir.
+    """
+    if filename == 'jobad.json':
+        return file_manager.reader.get_job_ad_data(job_id)
+    elif filename == 'qna.json':
+        return file_manager.reader.get_qna_data(job_id)
+    elif filename == 'cv.json':
+        return file_manager.reader.get_cv_data(candidate_id)
+    return {}
 
 class ChatRequest(BaseModel):
     sessionId: str
@@ -59,20 +57,24 @@ class ChatRequest(BaseModel):
 sessions: Dict[str, Dict[str, Any]] = {}
 
 def get_session(session_id: str):
+    """
+    Session ID'nin kendisi candidate_id'dir.
+    Bu ID'den job_id'yi çıkarırız.
+    """
     if session_id not in sessions:
-        stage = "starting"
+        candidate_id = session_id  # örn: "Genar-00001-00001"
         
-        candidate_id = f"{JOB_ID}-00001"
-        job_id = JOB_ID
-        
-        if "-" in session_id:
-            parts = session_id.split("-")
-            if len(parts) >= 2:
-                job_id = f"Genar-{parts[0].zfill(5)}"
-                candidate_id = f"Genar-{parts[0].zfill(5)}-{parts[1].zfill(5)}"
+        # Aday ID'sinden Job ID'yi çıkar
+        parts = candidate_id.split("-")
+        if len(parts) < 3:
+            print(f"HATA: Geçersiz session_id formatı: {session_id}")
+            job_id = "Genar-00001"
+            candidate_id = "Genar-00001-00001"
+        else:
+            job_id = f"{parts[0]}-{parts[1]}"  # örn: "Genar-00001"
         
         sessions[session_id] = {
-            "stage": stage,
+            "stage": "starting",
             "job_id": job_id,
             "candidate_id": candidate_id,
             "full_conversation": [],
@@ -94,8 +96,8 @@ async def debug_session(session_id: str):
     job_path = f"{DATA_PATH}/{session.get('job_id')}/JobAd.json"
     cv_path = f"{DATA_PATH}/{session.get('job_id')}/{session.get('candidate_id')}/cv_extraction.json"
     
-    candidate_cv = load_json_data('cv.json', session.get('candidate_id'))
-    job_data = load_json_data('jobad.json', job_id=session.get('job_id'))
+    candidate_cv = load_json_data('cv.json', session.get('job_id'), session.get('candidate_id'))
+    job_data = load_json_data('jobad.json', session.get('job_id'), session.get('candidate_id'))
     
     return {
         "session_id": session_id,
@@ -133,21 +135,25 @@ async def handle_chat(request: ChatRequest):
     elif user_message == "QUIZ_COMPLETED":
         session["stage"] = "ending"
         starting_history_str = "\n".join([f"{'Aday' if msg['sender']=='user' else 'Asistan'}: {msg['text']}" for msg in session["starting_conversation"]])
-        qna_data = load_json_data('qna.json', job_id=session.get('job_id'))
+        qna_data = file_manager.reader.get_qna_data(session.get('job_id'))
         response_text = await ending_agent(client, starting_history_str, "", qna_data)
         if response_text:
             session["ending_conversation"].append({"sender": "assistant", "text": response_text})
     elif stage == "starting":
-        candidate_cv = load_json_data('cv.json', session.get('candidate_id'))
-        job_data = load_json_data('jobad.json', job_id=session.get('job_id'))
+        job_id = session["job_id"]
+        candidate_id = session["candidate_id"]
+        candidate_cv = load_json_data('cv.json', job_id, candidate_id)
+        job_data = load_json_data('jobad.json', job_id, candidate_id)
         agent_result = await starting_agent(client, history_str, user_message, candidate_cv, job_data)
         response_text = agent_result.get("response", "")
         if agent_result.get("is_complete"):
             action = "START_INTERVIEW"
             session["stage"] = "interview"
     elif stage == "interview":
-        candidate_cv = load_json_data('cv.json', session.get('candidate_id'))
-        job_data = load_json_data('jobad.json', job_id=session.get('job_id'))
+        job_id = session["job_id"]
+        candidate_id = session["candidate_id"]
+        candidate_cv = load_json_data('cv.json', job_id, candidate_id)
+        job_data = load_json_data('jobad.json', job_id, candidate_id)
         response_text = await interview_agent(client, history_str, user_message, candidate_cv, job_data)
         if "INTERVIEW_COMPLETE" in response_text:
             response_text = response_text.replace("INTERVIEW_COMPLETE", "").strip()
@@ -156,7 +162,7 @@ async def handle_chat(request: ChatRequest):
     elif stage == "ending":
         combined_history = session["starting_conversation"] + session["ending_conversation"]
         ending_history_str = "\n".join([f"{'Aday' if msg['sender']=='user' else 'Asistan'}: {msg['text']}" for msg in combined_history])
-        qna_data = load_json_data('qna.json', job_id=session.get('job_id'))
+        qna_data = file_manager.reader.get_qna_data(session.get('job_id'))
         response_text = await ending_agent(client, ending_history_str, user_message, qna_data)
         if "POST_INTERVIEW_COMPLETE" in response_text:
             response_text = response_text.replace("POST_INTERVIEW_COMPLETE", "").strip()
@@ -196,18 +202,23 @@ async def save_transcript(request: ChatRequest):
         "full_conversation": session.get("full_conversation", [])
     }
     
-    file_manager.save_candidate_data(COMPANY_ID, job_id, candidate_id, "interview_transcript", transcript_data)
+    file_manager.writer.save_candidate_data("", job_id, candidate_id, "interview_transcript", transcript_data)
     
     del sessions[request.sessionId]
     return {"status": "success"}
 
 @app.post('/api/agents/quiz')
 async def handle_quiz_agent_route():
-    quiz_data = file_manager.get_job_data(COMPANY_ID, JOB_ID, "Quiz")
+    quiz_data = file_manager.get_job_data("", JOB_ID, "Quiz")
     if not quiz_data:
-        qna_data = file_manager.get_job_data(COMPANY_ID, JOB_ID, "Q&A")
-        job_data = file_manager.get_job_data(COMPANY_ID, JOB_ID, "JobAd")
-        return await quiz_agent(client, qna_data, job_data)
+        qna_data = file_manager.reader.get_qna_data(JOB_ID)
+        job_data = file_manager.reader.get_job_ad_data(JOB_ID)
+        quiz_data = await quiz_agent(client, qna_data, job_data)
+        
+        # Oluşturulan quiz'i ilan klasörüne kaydet
+        file_manager.writer.save_job_data("", JOB_ID, "Quiz", quiz_data)
+        
+        return quiz_data
     else:
         return quiz_data
 
@@ -234,7 +245,7 @@ async def save_quiz_results(request: QuizResultsRequest):
                 "results": request.results
             }
             
-            file_manager.save_candidate_data(COMPANY_ID, job_id, candidate_id, "quiz_results", quiz_data)
+            file_manager.writer.save_candidate_data("", job_id, candidate_id, "quiz_results", quiz_data)
         
         return {"status": "success"}
     except Exception as e:

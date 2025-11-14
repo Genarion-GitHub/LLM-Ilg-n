@@ -21,7 +21,14 @@ const UserAvatar: React.FC = () => (
 const App: React.FC = () => {
     const [page, setPage] = useState<Page>('scheduling');
     // Dinamik session ID: jobId-candidateId formatı
-    const sessionIdRef = useRef<string>('00001-00001'); // İlan 1, Aday 1 (Melis Kaya)
+    // URL'den sessionId al, yoksa default kullan
+    const getSessionIdFromUrl = () => {
+        const params = new URLSearchParams(window.location.search);
+        const sessionId = params.get('sessionId') || 'Genar-00001-00001';
+        console.log('🔍 URL sessionId:', sessionId);
+        return sessionId;
+    };
+    const sessionIdRef = useRef<string>(getSessionIdFromUrl());
     const [isLoaded, setIsLoaded] = useState(false);
     const [quizScore, setQuizScore] = useState(0);
     const [isQuizDone, setIsQuizDone] = useState(false);
@@ -84,9 +91,11 @@ const App: React.FC = () => {
         localStorage.removeItem('quizResults');
         // Yeni session ID oluştur (farklı aday için)
         const currentId = sessionIdRef.current.split('-');
-        const newCandidateId = String(parseInt(currentId[1]) + 1).padStart(5, '0');
-        sessionIdRef.current = `${currentId[0]}-${newCandidateId}`;
+        const newCandidateId = String(parseInt(currentId[2]) + 1).padStart(5, '0');
+        sessionIdRef.current = `${currentId[0]}-${currentId[1]}-${newCandidateId}`;
         console.log(`🆕 Yeni session ID: ${sessionIdRef.current}`);
+        // URL'yi de güncelle
+        window.history.replaceState({}, '', `?sessionId=${sessionIdRef.current}`);
         setPage('scheduling');
     };
 

@@ -1,0 +1,158 @@
+{
+  "session_id": "00001-00001",
+  "timestamp": "2025-11-14T20:45:34.176022",
+  "starting_conversation": [
+    {
+      "sender": "user",
+      "text": "merhaba"
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Hanım, hoş geldiniz! CreativePulse Ajans’ta Google Ads ve Meta reklam yönetimiyle çalıştığınızı gördüm. Bu süreçte en çok keyif aldığınız kampanya ya da proje hangisiydi? :)"
+    },
+    {
+      "sender": "user",
+      "text": "Dürüst olmak gerekirse, bu role gelene kadarki süreçte en çok keyif aldığım proje, yerel ve butik bir \"sürdürülebilir ev tekstili\" markası için yürüttüğümüz entegre bir kampanyaydı."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika bir proje olmuş! Sürdürülebilir ev tekstili markası için yürüttüğünüz entegre kampanyada, özellikle hangi aşama (strateji geliştirme, reklam yönetimi, raporlama vs.) size en çok keyif verdi ve neden? 🌱😊"
+    },
+    {
+      "sender": "user",
+      "text": "Meta'nın hikaye anlatıcılığı gücü ile Google'ın yüksek dönüşüm niyeti arasındaki mükemmel sinerjiyi kurgulamak ve bu 'bulmacayı' çözmek bana en çok keyif veriyordu. İki platformun birbirini beslediği o anı planlamak, sadece reklam yayınlamaktan çok bir problem çözme süreciydi."
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu iki platformun sinerjisini kurarken, kararlarınızı en çok hangi veri ya da içgörü yönlendirdi? Ayrıca bu süreçte ekip içi iş birliğini nasıl deneyimlediniz? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "Kararlarımızı, Meta'dan gelen trafiğin dönüşüm sonrası davranış verileri (kalite) ve Google'daki marka dışı anahtar kelime performans düşüklüğü yönlendirdi. Ekip, \"Hangi platform daha iyi?\" yerine \"Platformlar birbirini nasıl besledi?\" sorusuna odaklanarak şeffaf ve hızlı bir bilgi akışı sağladı."
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu yeni Dijital Pazarlama Uzmanı pozisyonunda sizi en çok hangi yönü heyecanlandırıyor ve bu rolde hangi katkıyı sağlamak istersiniz? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "Bu yeni pozisyonda beni en çok heyecanlandıran yön, CreativePulse'un Meta ve Google'ı tek bir hikaye anlatıcısı olarak gören entegre strateji vizyonu. Sadece reklam yönetmek değil, yaratıcılık ile verinin kesişim noktasında duran kampanyalar tasarlamak istiyorum."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim."
+    }
+  ],
+  "ending_conversation": [
+    {
+      "sender": "assistant",
+      "text": "Tebrikler, mülakatın temel aşamalarını tamamladınız! Şimdi pozisyon, şirket veya süreç hakkında sorularınız varsa yanıtlamaktan memnuniyet duyarım. Size nasıl yardımcı olabilirim?"
+    },
+    {
+      "sender": "user",
+      "text": "Çalışma saatleriniz nasıl"
+    },
+    {
+      "sender": "assistant",
+      "text": "09:00–18:00, esnek giriş-çıkış imkanı (±1 saat).  \n\nBaşka sorunuz yoksa, eklemek istediğiniz bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "Ekibiniz kaç kişi"
+    },
+    {
+      "sender": "assistant",
+      "text": "Ekip, 4 kişilik bir dijital pazarlama ekibi olacak ve bu ekibe dahil olacaksınız.  \n\nBaşka sorunuz yoksa, eklemek istediğiniz herhangi bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "Bu pozisyon için beklentiniz nedir"
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu çok iyi bir soru — İK ekibimizle paylaşacağım ve toplantı sonrası size cevap verilmesini sağlayacağım.  \n\nBaşka sorunuz yoksa, eklemek istediğiniz bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "yok"
+    },
+    {
+      "sender": "assistant",
+      "text": "Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler!"
+    }
+  ],
+  "full_conversation": [
+    {
+      "sender": "user",
+      "text": "merhaba"
+    },
+    {
+      "sender": "assistant",
+      "text": "Merhaba Melis Hanım, hoş geldiniz! CreativePulse Ajans’ta Google Ads ve Meta reklam yönetimiyle çalıştığınızı gördüm. Bu süreçte en çok keyif aldığınız kampanya ya da proje hangisiydi? :)"
+    },
+    {
+      "sender": "user",
+      "text": "Dürüst olmak gerekirse, bu role gelene kadarki süreçte en çok keyif aldığım proje, yerel ve butik bir \"sürdürülebilir ev tekstili\" markası için yürüttüğümüz entegre bir kampanyaydı."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika bir proje olmuş! Sürdürülebilir ev tekstili markası için yürüttüğünüz entegre kampanyada, özellikle hangi aşama (strateji geliştirme, reklam yönetimi, raporlama vs.) size en çok keyif verdi ve neden? 🌱😊"
+    },
+    {
+      "sender": "user",
+      "text": "Meta'nın hikaye anlatıcılığı gücü ile Google'ın yüksek dönüşüm niyeti arasındaki mükemmel sinerjiyi kurgulamak ve bu 'bulmacayı' çözmek bana en çok keyif veriyordu. İki platformun birbirini beslediği o anı planlamak, sadece reklam yayınlamaktan çok bir problem çözme süreciydi."
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu iki platformun sinerjisini kurarken, kararlarınızı en çok hangi veri ya da içgörü yönlendirdi? Ayrıca bu süreçte ekip içi iş birliğini nasıl deneyimlediniz? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "Kararlarımızı, Meta'dan gelen trafiğin dönüşüm sonrası davranış verileri (kalite) ve Google'daki marka dışı anahtar kelime performans düşüklüğü yönlendirdi. Ekip, \"Hangi platform daha iyi?\" yerine \"Platformlar birbirini nasıl besledi?\" sorusuna odaklanarak şeffaf ve hızlı bir bilgi akışı sağladı."
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu yeni Dijital Pazarlama Uzmanı pozisyonunda sizi en çok hangi yönü heyecanlandırıyor ve bu rolde hangi katkıyı sağlamak istersiniz? 😊"
+    },
+    {
+      "sender": "user",
+      "text": "Bu yeni pozisyonda beni en çok heyecanlandıran yön, CreativePulse'un Meta ve Google'ı tek bir hikaye anlatıcısı olarak gören entegre strateji vizyonu. Sadece reklam yönetmek değil, yaratıcılık ile verinin kesişim noktasında duran kampanyalar tasarlamak istiyorum."
+    },
+    {
+      "sender": "assistant",
+      "text": "Harika! Verdiğiniz bilgiler için teşekkürler. O zaman mülakatın bir sonraki bölümüne geçelim."
+    },
+    {
+      "sender": "user",
+      "text": "Çalışma saatleriniz nasıl"
+    },
+    {
+      "sender": "assistant",
+      "text": "09:00–18:00, esnek giriş-çıkış imkanı (±1 saat).  \n\nBaşka sorunuz yoksa, eklemek istediğiniz bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "Ekibiniz kaç kişi"
+    },
+    {
+      "sender": "assistant",
+      "text": "Ekip, 4 kişilik bir dijital pazarlama ekibi olacak ve bu ekibe dahil olacaksınız.  \n\nBaşka sorunuz yoksa, eklemek istediğiniz herhangi bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "Bu pozisyon için beklentiniz nedir"
+    },
+    {
+      "sender": "assistant",
+      "text": "Bu çok iyi bir soru — İK ekibimizle paylaşacağım ve toplantı sonrası size cevap verilmesini sağlayacağım.  \n\nBaşka sorunuz yoksa, eklemek istediğiniz bir şey var mı?"
+    },
+    {
+      "sender": "user",
+      "text": "yok"
+    },
+    {
+      "sender": "assistant",
+      "text": "Teşekkür ederim! Mülakat sürecimiz tamamlandı. Değerlendirme sonuçları en kısa sürede size iletilecektir. İyi günler!"
+    }
+  ]
+}

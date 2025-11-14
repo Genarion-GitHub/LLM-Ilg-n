@@ -6,5 +6,151 @@
   {
     "soru": "Bu pozisyona özgü görev ve sorumluluklar nelerdir?",
     "cevap": "Sosyal medya kampanyalarının yönetimi, reklam performanslarının analizi, marka görünürlüğünü artırmak için dijital stratejilerin oluşturulması."
+  },
+  {
+    "soru": "Bu pozisyon için hangi mesleki yetkinlikler gerekmektedir?",
+    "cevap": "Google Ads, Meta Business Suite, SEO/SEM, Google Analytics, içerik planlama ve kampanya optimizasyonu."
+  },
+  {
+    "soru": "Bu pozisyon için ihtiyaç duyulan asgari mesleki tecrübe süresi nedir (yıl olarak)?",
+    "cevap": "En az 3 yıl."
+  },
+  {
+    "soru": "Bu pozisyon için gerekli mesleki yetkinlikler dışında hangi kalifikasyonlar aranmaktadır?",
+    "cevap": "Üniversitelerin iletişim, işletme, pazarlama veya ilgili bölümlerinden mezun olmak."
+  },
+  {
+    "soru": "Bu pozisyon için adayın hangi kişisel özelliklere sahip olması beklenmektedir?",
+    "cevap": "Analitik düşünme, yaratıcılık, iletişim becerisi yüksek, zaman yönetimi güçlü."
+  },
+  {
+    "soru": "Adayın iş tecrübesine sahip olması gereken rol ve sektörler var mı? Varsa nelerdir?",
+    "cevap": "Reklam ajansları veya marka tarafında dijital pazarlama departmanlarında deneyim."
+  },
+  {
+    "soru": "Adayın bu rollerde veya sektörlerde ne kadarlık bir tecrübesi olmalı?",
+    "cevap": "Bu rollerde en az 2 yıl deneyim."
+  },
+  {
+    "soru": "Bu pozisyonda iş yeri lokasyonu neresidir (ilçe/il/ülke şeklinde sıralayınız)?",
+    "cevap": "Beşiktaş / İstanbul / Türkiye"
+  },
+  {
+    "soru": "Bu pozisyonda çalışma tipi nedir (tam zamanlı, yarı zamanlı, stajyer, proje bazlı, gönüllü)?",
+    "cevap": "Tam zamanlı"
+  },
+  {
+    "soru": "Bu pozisyonda çalışma şartları nedir (ofisten, uzaktan veya ev/ofis hibrit çalışma)?",
+    "cevap": "Hibrit (haftada 3 gün ofis, 2 gün uzaktan)"
+  },
+  {
+    "soru": "Bu pozisyon için işe alınacak kişi sayısı nedir?",
+    "cevap": "1 kişi"
+  },
+  {
+    "soru": "Bu pozisyon için çalışma günleri ve haftalık çalışma saati nedir?",
+    "cevap": "Hafta içi 5 gün, 09:00–18:00"
+  },
+  {
+    "soru": "Bu pozisyonda görev alan kişi kime bağlı çalışmaktadır?",
+    "cevap": "Pazarlama Müdürüne bağlı olarak çalışacaktır."
+  },
+  {
+    "soru": "Bu pozisyonda görev alan kişi bir ekibe bağlı olarak mı çalışacaktır? Öyleyse nasıl bir ekip yapısı bulunmaktadır?",
+    "cevap": "Evet, 4 kişilik dijital pazarlama ekibinde yer alacaktır."
+  },
+  {
+    "soru": "Bu pozisyonda görev alan kişiye bağlı çalışan kişiler var mı? Varsa kaç kişiden oluşmakta ve neler yapmaktadırlar?",
+    "cevap": "Hayır, doğrudan bağlı çalışan bulunmamaktadır."
+  },
+  {
+    "soru": "Bu pozisyonun şirket içindeki diğer departmanlarla etkileşimi var mı? Varsa kapsamı nedir?",
+    "cevap": "Satış, tasarım ve yazılım ekipleriyle yakın iş birliği yürütür."
+  },
+  {
+    "soru": "Bu pozisyon için belirlenen başlıca performans göstergeleri nelerdir?",
+    "cevap": "Kampanya dönüşüm oranı, tıklama başına maliyet, marka etkileşim oranı, ROI."
+  },
+  {
+    "soru": "Şirketinizin bu role ve genel olarak sektöre yönelik uzun vadeli planları nelerdir?",
+    "cevap": "Şirket, 2026’ya kadar Avrupa pazarına açılmayı ve dijital satış kanallarını büyütmeyi hedeflemektedir."
+  },
+  {
+    "soru": "Bu rol için belirlenen bütçe aralığı nedir?",
+    "cevap": "Aylık 45.000–55.000 TL brüt."
+  },
+  {
+    "soru": "Performansa dayalı bonus, prim veya teşvikler var mı?",
+    "cevap": "Evet, performansa dayalı prim sistemi mevcuttur."
+  },
+  {
+    "soru": "Bu işe alım sürecinde planlanan ilan yayınlama ve yayından kaldırma tarihleri nedir?",
+    "cevap": "İlan Yayın: 01.11.2025, Yayından Kalkış: 30.11.2025"
+  },
+  {
+    "soru": "Bu işe alım sürecinde mülakatlar için planlanan başlangıç ve bitiş tarihleri nedir?",
+    "cevap": "Mülakat Başlangıç: 05.12.2025, Bitiş: 20.12.2025"
+  },
+  {
+    "soru": "Bu işe alım süreci hangi aşamalardan oluşmaktadır?",
+    "cevap": "Ön değerlendirme → Online mülakat → Ofis mülakatı → Teklif"
+  },
+  {
+    "soru": "Bu pozisyon için çalışma saatleri nedir ve esnek çalışma imkanları mevcut mudur?",
+    "cevap": "09:00–18:00, esnek giriş-çıkış imkanı (±1 saat)."
+  },
+  {
+    "soru": "Bu pozisyon için uzaktan çalışma veya hibrit çalışma modeli varsa şartları nedir?",
+    "cevap": "Haftada en fazla 2 gün uzaktan çalışma imkanı vardır."
+  },
+  {
+    "soru": "Yıllık izin, sağlık sigortası ve diğer yan haklar nelerdir?",
+    "cevap": "Yıllık 20 gün izin, özel sağlık sigortası, öğle yemeği ve ulaşım desteği."
+  },
+  {
+    "soru": "Şirketin performans değerlendirme süreci nasıl işlemektedir?",
+    "cevap": "Yıllık hedef bazlı performans değerlendirmesi yapılır."
+  },
+  {
+    "soru": "Şirketinizin şirket kültürünü nasıl tanımlarsınız?",
+    "cevap": "Yenilikçi, takım odaklı ve sonuç odaklı bir kültürümüz var."
+  },
+  {
+    "soru": "Çalışanların motivasyonunu ve bağlılığını artırmak için hangi girişimlerde bulunuyorsunuz?",
+    "cevap": "Açık iletişim toplantıları, başarı ödülleri ve şirket içi etkinliklerle motivasyon desteklenir."
+  },
+  {
+    "soru": "Şirket içi eğitim ve gelişim programları var mı? Çalışanların profesyonel gelişimine nasıl katkıda bulunuyorsunuz?",
+    "cevap": "Evet, dijital pazarlama ve veri analitiği alanlarında online eğitim destekleri sunulmaktadır."
+  },
+  {
+    "soru": "Bu pozisyona en son kim atandı ve bu kişi şu anda ne yapıyor?",
+    "cevap": "Son çalışan iç transferle Sosyal Medya Yöneticisi pozisyonuna geçmiştir."
+  },
+  {
+    "soru": "Çalışanların karşılaştığı en büyük zorluklar nelerdir?",
+    "cevap": "Hızlı değişen dijital trendlere uyum sağlamak en büyük zorluktur."
+  },
+  {
+    "soru": "Son bir yılda bu departmanda çalışan kaç kişi işten ayrıldı ve nedenleri nelerdi?",
+    "cevap": "Son bir yılda 1 kişi ayrılmış, neden olarak taşınma belirtilmiştir."
+  },
+  {
+    "soru": "Şirketinizde iş güvenliği ve çalışan sağlığı konusunda ne gibi önlemler alınıyor?",
+    "cevap": "Tüm ofislerde ergonomik çalışma koşulları ve periyodik sağlık kontrolleri uygulanır."
+  },
+  {
+    "soru": "Şirketinizin etik ilkeleri ve çalışanlara yönelik etik beklentileri nelerdir?",
+    "cevap": "Şeffaflık, dürüstlük ve eşit fırsat ilkeleri esas alınır."
+  },
+  {
+    "soru": "Aşağıdaki özelliklerden en önemli 5 tanesini önem sırasına göre sıralayınız.",
+    "cevap": [
+      "Analitik beceri",
+      "İletişim becerisi",
+      "Planlama becerisi",
+      "Takım çalışmasına yatkınlık",
+      "Yaratıcılık"
+    ]
   }
 ]
