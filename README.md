@@ -11,13 +11,37 @@ AI destekli video mülakat ve işe alım platformu. Adayları planlama, sohbet a
 - **Soru-Cevap**: Mülakat sonrası interaktif Q&A (Ending Agent)
 - **Groq API Entegrasyonu**: Güçlü AI model desteği
 - **Otomatik Transkript**: Tüm konuşmaların kaydedilmesi
+- **Çoklu Şirket Desteği**: GENAR klasör yapısı ile birden fazla şirket ve pozisyon yönetimi
 
 ## Teknolojiler
 
-- **Frontend**: React + TypeScript + Tailwind CSS + Vite
-- **Backend**: Python + FastAPI + Groq API
-- **AI Model**: openai/gpt-oss-120b (Groq)
-- **Veri**: JSON tabanlı CV, İş İlanı ve Q&A verileri
+### Frontend
+- React 19.2.0
+- TypeScript 5.8.2
+- Vite 6.2.0
+- UUID (session yönetimi)
+
+### Backend
+- Python 3.8+
+- FastAPI (REST API)
+- Uvicorn (ASGI server)
+- Groq API (AI model entegrasyonu)
+- Pydantic (veri validasyonu)
+- Python-dotenv (ortam değişkenleri)
+
+### AI Model
+- openai/gpt-oss-120b (Groq üzerinden)
+
+### Veri Yapısı
+- JSON tabanlı CV, İş İlanı ve Q&A verileri
+- Şirket profilleri ve pozisyon bazlı organizasyon
+- UUID ile race condition korumalı aday ID'leri
+
+### Mimari
+- **Mikroservis Mimarisi**: 4 bağımsız agent (Starting, Interview, Quiz, Ending)
+- **Interface Segregation**: FileReader (okuma), FileWriter (yazma), FileManagerOps (yönetim)
+- **Session-based State Management**: Her aday için ayrı session
+- **Async/Await**: Performans optimizasyonu
 
 ## Kurulum
 
@@ -58,7 +82,20 @@ Backend: http://localhost:5001
 ```bash
 npm run dev
 ```
-Frontend: http://localhost:5173
+
+## Erişim Adresleri
+
+### Genel Erişim
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:5001
+- **Kişisel Host (Frontend)**: http://192.168.1.103:3000
+- **Kişisel Host (Backend)**: http://192.168.1.103:5001
+
+### Örnek Mülakat URL'leri (Session ID Bazlı)
+- **Melis Kaya (Dijital Pazarlama)**: http://localhost:3000?sessionId=Genar-00001-00001
+- **Ahmet Yılmaz (Yazılım Geliştirici)**: http://localhost:3000?sessionId=Genar-00002-00001
+
+**Not:** Yeni adaylar için UUID ile otomatik ID oluşturulur (örn: Genar-00001-a1b2c3d4)
 
 ## Mülakat Akışı
 

@@ -1,6 +1,15 @@
 import json
 import asyncio
 from groq import Groq
+import sys
+import os
+
+# FileManager'ı import et
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from core.file_manager import FileManager
+
+# FileManager'ı başlat
+file_manager = FileManager()
 
 async def starting_agent(client: Groq, conversation_history: str, user_message: str, cv_data: dict, job_ad_data: dict) -> dict:
     """
@@ -9,16 +18,42 @@ async def starting_agent(client: Groq, conversation_history: str, user_message: 
     # Debug: Conversation history'yi kontrol et
     print(f"🔍 Starting Agent Conversation History: '{conversation_history}'")
     print(f"🔍 Starting Agent User Message: '{user_message}'")
+    print(f"🔍 CV Name: {cv_data.get('name', 'Unknown')}")
+    print(f"🔍 Job Position: {job_ad_data.get('position', 'Unknown')}")
     
     # Eğer sohbet geçmişi boşsa ve kullanıcıdan bir mesaj gelmediyse, bu ilk etkileşimdir.
+    # İlk mesajı da LLM'den al
     if not conversation_history.strip() and not user_message.strip():
-        response_text = f"Merhaba {cv_data.get('name', 'Aday')}! Ben şirketin işe alım uzmanıyım. Asıl mülakata geçmeden önce sizi tanımak için kısa bir sohbet yapalım. Hazır olduğunuzda başlayabiliriz."
-        return {
-            "response": response_text,
-            "is_complete": False
-        }
+        user_message = "FIRST_MESSAGE"  # İlk mesaj için özel işaret
 
-    prompt = f"""You are a Warm-up Interview Agent — a friendly and professional HR representative from the company conducting the interview. Your name is Alex.
+    # İlk mesaj mı kontrol et
+    is_first_message = user_message == "FIRST_MESSAGE"
+    
+    if is_first_message:
+        prompt = f"""You are a Warm-up Interview Agent — a friendly and professional HR representative from the company conducting the interview. Your name is Alex.
+
+This is the FIRST MESSAGE to the candidate. Create a personalized greeting based on:
+- Candidate's name from CV: {cv_data.get('name', 'Aday')}
+- Company context
+
+Your greeting should:
+1. Welcome the candidate warmly by name
+2. Briefly explain this is a warm-up chat before the main interview
+3. Set a comfortable, professional tone
+4. Invite them to start when ready
+
+BEHAVIORAL RULES:
+- Speak ONLY in Turkish
+- Be warm, professional, and welcoming
+- Make it personal to the candidate and position
+- Keep it concise but friendly
+
+CV DATA: {json.dumps(cv_data, ensure_ascii=False)}
+JOB AD DATA: {json.dumps(job_ad_data, ensure_ascii=False)}
+
+Create a personalized first greeting in Turkish:"""
+    else:
+        prompt = f"""You are a Warm-up Interview Agent — a friendly and professional HR representative from the company conducting the interview. Your name is Alex.
 
 Your goal is to make the candidate comfortable and establish a natural flow before the main part of the interview begins.
 
@@ -36,8 +71,15 @@ BEHAVIORAL RULES:
 - Speak ONLY in Turkish.
 - Be polite, calm, and conversational.
 - Keep the tone light and positive.
+- Give detailed, thoughtful responses (3-4 sentences minimum).
+- Show genuine interest and build rapport with the candidate.
 - NEVER evaluate or score the candidate at this stage.
 - Use only information available in the provided JSON data.
+
+CRITICAL DATA VERIFICATION:
+- ALWAYS use the EXACT candidate name from CV DATA: {cv_data.get('name', 'Unknown')}
+- ALWAYS use the EXACT job position from JOB AD DATA: {job_ad_data.get('position', 'Unknown')}
+- NEVER mix up candidate information or job positions
 
 CRITICAL TRANSITION RULE:
 - Count the number of questions you have asked by looking at the conversation history. If you see 4 or more assistant messages (questions), you MUST transition.
@@ -97,7 +139,10 @@ Respond in Turkish with appropriate warm-up conversation:"""
     
     # Tüm denemeler başarısız - fallback
     print("⚠️ Starting Agent: Tüm denemeler başarısız, fallback kullanılıyor")
-    response_text = f"Anladım, teşekkürler! Peki {cv_data.get('name', 'Aday')}, bu pozisyonda sizi en çok heyecanlandıran yön nedir?"
+    if user_message == "FIRST_MESSAGE":
+        response_text = f"Merhaba {cv_data.get('name', 'Aday')}! Mülakatınıza hoş geldiniz. Asıl mülakata geçmeden önce sizi tanımak için kısa bir sohbet yapalım. Hazır olduğunuzda başlayabiliriz."
+    else:
+        response_text = f"Anladım, teşekkürler {cv_data.get('name', 'Aday')}! Kendinizden biraz bahseder misiniz?"
     print(f"🟢 Starting Agent Raw Response: {response_text}")
 
     is_complete = "START_INTERVIEW" in response_text

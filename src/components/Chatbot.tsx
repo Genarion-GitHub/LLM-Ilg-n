@@ -132,7 +132,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ sessionId, mode, onStartInterview, on
                     setMessages([{ sender: 'assistant', text: data.response }]);
                 } else {
                     const fallbackText = mode === 'pre-interview'
-                        ? 'Merhaba! Dijital Pazarlama Uzmanı pozisyonu için mülakata hoş geldiniz. Hazır olduğunuzda başlayabiliriz.'
+                        ? 'Merhaba! Mülakata hoş geldiniz. Hazır olduğunuzda sizi tanımak amacıyla konuşmaya başlayabiliriz.'
                         : 'Tebrikler, mülakatın bu aşamasını tamamladınız. Şimdi pozisyon veya şirket hakkında sorularınız varsa alabilirim.';
                     setMessages([{ sender: 'assistant', text: fallbackText }]);
                 }

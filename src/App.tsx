@@ -24,11 +24,11 @@ const App: React.FC = () => {
     // URL'den sessionId al, yoksa default kullan
     const getSessionIdFromUrl = () => {
         const params = new URLSearchParams(window.location.search);
-        const sessionId = params.get('sessionId') || 'Genar-00001-00001';
+        const sessionId = params.get('sessionId');
         console.log('🔍 URL sessionId:', sessionId);
         return sessionId;
     };
-    const sessionIdRef = useRef<string>(getSessionIdFromUrl());
+    const sessionIdRef = useRef<string | null>(getSessionIdFromUrl());
     const [isLoaded, setIsLoaded] = useState(false);
     const [quizScore, setQuizScore] = useState(0);
     const [isQuizDone, setIsQuizDone] = useState(false);
@@ -84,19 +84,9 @@ const App: React.FC = () => {
     };
 
     const handleRestart = () => {
-        setQuizScore(0);
-        setIsQuizDone(false);
-        // Mülakat yeniden başladığında eski verileri temizle
-        localStorage.removeItem('preInterviewChat');
-        localStorage.removeItem('quizResults');
-        // Yeni session ID oluştur (farklı aday için)
-        const currentId = sessionIdRef.current.split('-');
-        const newCandidateId = String(parseInt(currentId[2]) + 1).padStart(5, '0');
-        sessionIdRef.current = `${currentId[0]}-${currentId[1]}-${newCandidateId}`;
-        console.log(`🆕 Yeni session ID: ${sessionIdRef.current}`);
-        // URL'yi de güncelle
-        window.history.replaceState({}, '', `?sessionId=${sessionIdRef.current}`);
-        setPage('scheduling');
+        alert('Mülakat tamamlandı. Yeni mülakat için yeni link gereklidir.');
+        sessionIdRef.current = null;
+        window.location.href = window.location.origin;
     };
 
     const renderPage = () => {
@@ -107,19 +97,37 @@ const App: React.FC = () => {
                 return <WaitingRoom onCountdownFinish={() => setPage('chatbot')} />;
             case 'chatbot':
                 // Mülakat öncesi sohbetten sonra doğrudan quiz'e geçiş yapılıyor.
-                return <Chatbot sessionId={sessionIdRef.current} mode="pre-interview" onStartInterview={() => setPage('interview')} onStartQuiz={() => setPage('quiz')} />;
+                return <Chatbot sessionId={sessionIdRef.current!} mode="pre-interview" onStartInterview={() => setPage('interview')} onStartQuiz={() => setPage('quiz')} />;
             case 'interview':
-                return <Interview sessionId={sessionIdRef.current} onStartQuiz={() => setPage('quiz')} />;
+                return <Interview sessionId={sessionIdRef.current!} onStartQuiz={() => setPage('quiz')} />;
             case 'quiz':
                 return <Quiz onComplete={handleQuizComplete} />;
             case 'qna':
-                return <QnA sessionId={sessionIdRef.current} onComplete={() => setPage('completion')} />;
+                return <QnA sessionId={sessionIdRef.current!} onComplete={() => setPage('completion')} />;
             case 'completion':
-                return <Completion score={quizScore} totalQuestions={10} sessionId={sessionIdRef.current} onRestart={handleRestart} />;
+                return <Completion score={quizScore} totalQuestions={10} sessionId={sessionIdRef.current!} onRestart={handleRestart} />;
             default:
                 return <Scheduling onStart={() => setPage('chatbot')} onScheduleLater={() => setPage('waiting')} />;
         }
     };
+
+    if (!sessionIdRef.current) {
+        return (
+            <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+                <div className="bg-white p-8 rounded-lg shadow-md text-center max-w-md">
+                    <div className="text-red-500 text-6xl mb-4">⚠️</div>
+                    <h1 className="text-2xl font-bold text-gray-800 mb-4">Geçersiz Mülakat Linki</h1>
+                    <p className="text-gray-600 mb-6">
+                        Bu sayfaya erişmek için geçerli bir mülakat linki gereklidir. 
+                        Lütfen size gönderilen mülakat linkini kullanın.
+                    </p>
+                    <div className="text-sm text-gray-500">
+                        Örnek: <code>?sessionId=Genar-00001-00001</code>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     if (!isLoaded) {
         return <div className="w-screen h-screen bg-gray-50"></div>;

@@ -1,11 +1,14 @@
 {
+  "meeting_link": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_abc123",
+  "meeting_platform": "Microsoft Teams",
   "candidates": [
     {
       "candidate_id": "Genar-00002-00001",
-      "name": "Mehmet Kaya",
-      "email": "mehmet.kaya@email.com",
+      "name": "Ahmet Yılmaz",
+      "email": "ahmet.yilmaz@email.com",
       "application_date": "2024-11-13T20:00:00.000Z",
-      "status": "applied"
+      "status": "applied",
+      "meeting_scheduled": "2024-11-14T14:00:00.000Z"
     }
   ]
 }

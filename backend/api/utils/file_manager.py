@@ -1,5 +1,6 @@
 import os
 import json
+import uuid
 from datetime import datetime
 
 class FileManager:
@@ -30,7 +31,7 @@ class FileManager:
             self._manager = FileManagerOps(self)
         return self._manager
         
-    def get_job_data(self, company_id: str, job_id: str, data_type: str):
+    def get_job_data(self, job_id: str, data_type: str):
         """Job verilerini okur (JobAd, Q&A, Quiz)"""
         file_path = os.path.join(self.base_dir, job_id, f"{data_type}.json")
         try:
@@ -41,27 +42,31 @@ class FileManager:
     
     def get_cv_data(self, candidate_id: str):
         """Adayın CV verilerini okur"""
+        # save_candidate_data zaten .json ekliyor, bu yüzden cv_extraction.json olarak aranmalı
         return self.get_candidate_data(candidate_id, "cv_extraction.json")
     
     def get_qna_data(self, job_id: str):
         """İş ilanının Q&A verilerini okur"""
-        file_path = os.path.join(self.base_dir, job_id, "Q&A.json")
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return {}
+        return self.get_job_data(job_id, "Q&A")
+    
+    def get_quiz_data(self, job_id: str):
+        """İş ilanının Quiz verilerini okur"""
+        return self.get_job_data(job_id, "Quiz")
     
     def get_job_ad_data(self, job_id: str):
         """İş ilanı verilerini okur"""
-        file_path = os.path.join(self.base_dir, job_id, "JobAd.json")
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return {}
+        return self.get_job_data(job_id, "JobAd")
     
-    def save_job_data(self, company_id: str, job_id: str, data_type: str, data: dict):
+    def get_interview_list_data(self, job_id: str):
+        """Interview list verilerini okur (meeting link dahil)"""
+        return self.get_job_data(job_id, "Interview_list")
+    
+    def get_meeting_link(self, job_id: str):
+        """Meeting link'ini döndürür"""
+        interview_data = self.get_interview_list_data(job_id)
+        return interview_data.get("meeting_link", "")
+    
+    def save_job_data(self, job_id: str, data_type: str, data: dict):
         """Job verilerini kaydeder (Quiz.json gibi)"""
         job_folder = os.path.join(self.base_dir, job_id)
         os.makedirs(job_folder, exist_ok=True)
@@ -71,7 +76,7 @@ class FileManager:
             json.dump(data, f, ensure_ascii=False, indent=2)
     
 
-    def save_candidate_data(self, company_id: str, job_id: str, candidate_id: str, data_type: str, data: dict):
+    def save_candidate_data(self, job_id: str, candidate_id: str, data_type: str, data: dict):
         """Aday verilerini kaydeder"""
         candidate_folder = os.path.join(self.base_dir, job_id, candidate_id)
         os.makedirs(candidate_folder, exist_ok=True)
@@ -80,20 +85,20 @@ class FileManager:
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
     
-    def create_candidate_folder(self, company_id: str, job_id: str, candidate_data: dict):
-        """Yeni aday klasörü oluşturur"""
+    def create_candidate_folder(self, job_id: str, candidate_data: dict):
+        """Yeni aday klasörü oluşturur - UUID ile race condition korumalı"""
         job_folder = os.path.join(self.base_dir, job_id)
         
-        # Mevcut aday sayısını bul
-        candidate_count = self._get_next_candidate_number(job_folder)
-        candidate_id = f"{job_id}-{candidate_count:05d}"
+        # UUID kullanarak benzersiz aday ID'si oluştur (race condition koruması)
+        unique_id = str(uuid.uuid4())[:8]  # İlk 8 karakter yeterli
+        candidate_id = f"{job_id}-{unique_id}"
         
         # Aday klasörü oluştur
         candidate_folder = os.path.join(job_folder, candidate_id)
         os.makedirs(candidate_folder, exist_ok=True)
         
-        # CV extraction kaydet
-        self.save_candidate_data(company_id, job_id, candidate_id, "cv_extraction", candidate_data)
+        # CV extraction kaydet (save_candidate_data otomatik .json ekler)
+        self.save_candidate_data(job_id, candidate_id, "cv_extraction", candidate_data)
         
         # Interview list güncelle
         self._update_interview_list(job_folder, candidate_id, candidate_data)
@@ -139,7 +144,7 @@ class FileManager:
     
     def _get_paths_from_id(self, candidate_id: str):
         """Candidate ID'den ilan ve aday klasör yollarını çıkarır"""
-        # Genar-00001-00001 -> ["Genar", "00001", "00001"]
+        # Genar-00001-uuid veya Genar-00001-00001 formatını destekler
         parts = candidate_id.split("-")
         if len(parts) < 3:
             raise ValueError(f"Invalid candidate_id format: {candidate_id}")
@@ -199,8 +204,8 @@ class FileReader:
     def __init__(self, file_manager):
         self.fm = file_manager
     
-    def get_job_data(self, company_id: str, job_id: str, data_type: str):
-        return self.fm.get_job_data(company_id, job_id, data_type)
+    def get_job_data(self, job_id: str, data_type: str):
+        return self.fm.get_job_data(job_id, data_type)
     
     def get_cv_data(self, candidate_id: str):
         return self.fm.get_cv_data(candidate_id)
@@ -208,28 +213,37 @@ class FileReader:
     def get_qna_data(self, job_id: str):
         return self.fm.get_qna_data(job_id)
     
+    def get_quiz_data(self, job_id: str):
+        return self.fm.get_quiz_data(job_id)
+    
     def get_job_ad_data(self, job_id: str):
         return self.fm.get_job_ad_data(job_id)
     
     def get_candidate_data(self, candidate_id: str, file_name: str):
         return self.fm.get_candidate_data(candidate_id, file_name)
+    
+    def get_interview_list_data(self, job_id: str):
+        return self.fm.get_interview_list_data(job_id)
+    
+    def get_meeting_link(self, job_id: str):
+        return self.fm.get_meeting_link(job_id)
 
 class FileWriter:
     def __init__(self, file_manager):
         self.fm = file_manager
     
-    def save_job_data(self, company_id: str, job_id: str, data_type: str, data: dict):
-        return self.fm.save_job_data(company_id, job_id, data_type, data)
+    def save_job_data(self, job_id: str, data_type: str, data: dict):
+        return self.fm.save_job_data(job_id, data_type, data)
     
-    def save_candidate_data(self, company_id: str, job_id: str, candidate_id: str, data_type: str, data: dict):
-        return self.fm.save_candidate_data(company_id, job_id, candidate_id, data_type, data)
+    def save_candidate_data(self, job_id: str, candidate_id: str, data_type: str, data: dict):
+        return self.fm.save_candidate_data(job_id, candidate_id, data_type, data)
 
 class FileManagerOps:
     def __init__(self, file_manager):
         self.fm = file_manager
     
-    def create_candidate_folder(self, company_id: str, job_id: str, candidate_data: dict):
-        return self.fm.create_candidate_folder(company_id, job_id, candidate_data)
+    def create_candidate_folder(self, job_id: str, candidate_data: dict):
+        return self.fm.create_candidate_folder(job_id, candidate_data)
     
     def get_candidate_file_path(self, candidate_id: str, file_name: str):
         return self.fm.get_candidate_file_path(candidate_id, file_name)

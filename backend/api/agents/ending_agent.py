@@ -49,7 +49,7 @@ Now, respond in Turkish based on the rules and flow:"""
             messages=[{"role": "user", "content": prompt}],
             model="openai/gpt-oss-120b",
             temperature=0.3,
-            max_tokens=500
+            max_tokens=1024
         )
         
         response = chat_completion.choices[0].message.content

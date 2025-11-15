@@ -87,6 +87,14 @@ def get_session(session_id: str):
 async def health_check():
     return {"status": "ok"}
 
+@app.delete('/api/session/{session_id}')
+async def clear_session(session_id: str):
+    """Session'ı temizle"""
+    if session_id in sessions:
+        del sessions[session_id]
+        return {"status": "success", "message": f"Session {session_id} cleared"}
+    return {"status": "not_found", "message": f"Session {session_id} not found"}
+
 @app.get('/api/debug/{session_id}')
 async def debug_session(session_id: str):
     """Session bilgilerini debug et"""
@@ -202,7 +210,7 @@ async def save_transcript(request: ChatRequest):
         "full_conversation": session.get("full_conversation", [])
     }
     
-    file_manager.writer.save_candidate_data("", job_id, candidate_id, "interview_transcript", transcript_data)
+    file_manager.writer.save_candidate_data(job_id, candidate_id, "interview_transcript", transcript_data)
     
     del sessions[request.sessionId]
     return {"status": "success"}
@@ -216,7 +224,7 @@ async def handle_quiz_agent_route():
         quiz_data = await quiz_agent(client, qna_data, job_data)
         
         # Oluşturulan quiz'i ilan klasörüne kaydet
-        file_manager.writer.save_job_data("", JOB_ID, "Quiz", quiz_data)
+        file_manager.writer.save_job_data(JOB_ID, "Quiz", quiz_data)
         
         return quiz_data
     else:
@@ -245,7 +253,7 @@ async def save_quiz_results(request: QuizResultsRequest):
                 "results": request.results
             }
             
-            file_manager.writer.save_candidate_data("", job_id, candidate_id, "quiz_results", quiz_data)
+            file_manager.writer.save_candidate_data(job_id, candidate_id, "quiz_results", quiz_data)
         
         return {"status": "success"}
     except Exception as e:

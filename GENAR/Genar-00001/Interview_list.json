@@ -1,11 +1,14 @@
 {
+  "meeting_link": "https://zoom.us/j/123456789?pwd=abc123",
+  "meeting_platform": "Zoom",
   "candidates": [
     {
       "candidate_id": "Genar-00001-00001",
       "name": "Melis Kaya",
       "email": "melis.kaya@email.com",
       "application_date": "2024-11-13T19:00:00.000Z",
-      "status": "applied"
+      "status": "applied",
+      "meeting_scheduled": "2024-11-14T10:00:00.000Z"
     }
   ]
 }
