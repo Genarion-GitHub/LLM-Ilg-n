@@ -4,10 +4,11 @@ import { VideoOffIcon } from './Icons';
 
 interface QuizProps {
     onComplete: (score: number) => void;
+    sessionId?: string;
 }
 
 
-const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
+const Quiz: React.FC<QuizProps> = ({ onComplete, sessionId }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [score, setScore] = useState(0);
@@ -44,35 +45,35 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             if (!isMounted || hasLoaded) return;
             hasLoaded = true;
             
-            // Önceden hazırlanmış quiz'i kontrol et
-            const preloadedQuiz = localStorage.getItem('preloadedQuiz');
+            // SessionId'yi prop'tan veya URL'den al
+            const finalSessionId = sessionId || (() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get('sessionId') || localStorage.getItem('sessionId') || 'unknown';
+            })();
             
-            if (preloadedQuiz) {
-                try {
-                    const questions = JSON.parse(preloadedQuiz);
-                    if (isMounted) {
-                        setQuizData(questions);
-                        setLoading(false);
-                    }
-                    return;
-                } catch (err) {
-                    console.error('Preloaded quiz parse hatası:', err);
-                }
+            // SessionId'yi localStorage'a kaydet
+            if (finalSessionId !== 'unknown') {
+                localStorage.setItem('sessionId', finalSessionId);
             }
+            
+            console.log('🔍 Quiz yükleniyor - SessionId:', finalSessionId);
             
             // Eğer preloaded quiz yoksa, yeni oluştur
             try {
                 if (isMounted) setLoading(true);
                 
+                // SessionId zaten yukarıda alındı
                 const response = await fetch('http://localhost:5001/api/agents/quiz', {
                     method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sessionId: finalSessionId, userMessage: '' })
                 });
                 if (!response.ok) throw new Error('Quiz API request failed');
 
                 const questions = await response.json();
                 
-                // Quiz'i localStorage'a kaydet
-                localStorage.setItem('preloadedQuiz', JSON.stringify(questions));
+                // Debug: Quiz içeriğini logla
+                console.log('📝 Oluşturulan quiz:', questions[0]?.question);
                 
                 if (isMounted) {
                     setQuizData(questions);
@@ -129,7 +130,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        sessionId: localStorage.getItem('sessionId') || 'unknown',
+                        sessionId: finalSessionId,
                         score: finalScore,
                         totalQuestions: quizData.length,
                         results: quizResults

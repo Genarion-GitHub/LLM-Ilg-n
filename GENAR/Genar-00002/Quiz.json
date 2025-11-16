@@ -1,0 +1,112 @@
+[
+  {
+    "question": "React ile yeni bir kütüphane keşfettiğinizde bu duruma nasıl yaklaşırsınız?",
+    "options": [
+      "A) Çok heyecan duyup hemen denemek isterim.",
+      "B) Merak ederim ama önce dokümantasyonu incelerim.",
+      "C) Gerektiğinde öğrenirim, önceliğim mevcut projedir.",
+      "D) Mevcut kodu korumak isterim, değişiklik yapmaktan kaçınırım."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "React projesinde UI tutarlılığını sağlamak için en çok hangi yöntemi tercih edersiniz?",
+    "options": [
+      "A) Detaylı bir stil rehberi ve bileşen kütüphanesi oluştururum.",
+      "B) Takım içinde tartışma yaparak ortak karar alırız.",
+      "C) Gerektiğinde hızlıca düzeltmeler yaparım.",
+      "D) Önceliği fonksiyonelliğe veririm, tasarım detaylarını sonra eklerim."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Node.js uygulamanızın performansını artırmak için hangi adımı öncelik olarak uygularsınız?",
+    "options": [
+      "A) Kod profilini düzenli olarak analiz eder ve darboğazları tespit ederim.",
+      "B) Kritik bölümlerde sadece gerektiğinde iyileştirme yaparım.",
+      "C) Performans sorunlarını göz ardı eder, işlevselliği korurum.",
+      "D) Sadece test ortamında denemeler yaparım, prodüksiyonda dokunmam."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Yoğun trafik anında Node.js sunucusunda bir hata aldığınızda nasıl davranırsınız?",
+    "options": [
+      "A) Hemen panik edip çözüm aramaya çalışırım.",
+      "B) Soğukkanlı kalarak öncelik listesi oluşturur ve adım adım sorunu çözerim.",
+      "C) Sorunu başka bir ekip üyesine devrederim.",
+      "D) Sorunu görmezden gelerek iş akışını sürdürürüm."
+    ],
+    "correctAnswerIndex": 1,
+    "time": 60
+  },
+  {
+    "question": "Takım içinde bir API sözleşmesi oluştururken hangi tutumu sergilersiniz?",
+    "options": [
+      "A) Kendi tercih ettiğim tasarımı zorlarım.",
+      "B) Takımın görüşlerini dinleyip ortak bir standart belirlerim.",
+      "C) En hızlı yolu seçer, detayları sonraya bırakırım.",
+      "D) Sadece üst yönetimin talimatlarını uygularım."
+    ],
+    "correctAnswerIndex": 1,
+    "time": 60
+  },
+  {
+    "question": "REST yerine GraphQL gibi yeni bir API teknolojisini denemek istediğinizde nasıl hareket edersiniz?",
+    "options": [
+      "A) İmkânı değerlendirip denemek isterim.",
+      "B) Mevcut REST yeterli, değişiklik yapmam.",
+      "C) Sadece yönetimin onayıyla değiştiririm.",
+      "D) Diğer ekiplerin deneyimlerine bakarım ve karar veririm."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "MongoDB’de veri modeli tasarlarken hangi yaklaşıma öncelik verirsiniz?",
+    "options": [
+      "A) Şema tasarımını titizlikle planlar, olası sorguları öngörürüm.",
+      "B) İlk denemeyi hızlı yapar, sonradan iyileştiririm.",
+      "C) Sık sık değiştirir, esnekliği artırırım.",
+      "D) Başkalarının yaptığı modele uyarım."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Veritabanı hatası aldığınızda nasıl bir tutum sergilersiniz?",
+    "options": [
+      "A) Hemen panik edip logları hızlıca incelerim.",
+      "B) Sakin kalarak hatanın kaynağını adım adım bulurum.",
+      "C) Sorunu görmezden gelirim, iş akışını sürdürebilirim.",
+      "D) Sorunu başkalarına bağlar, sorumluluktan kaçınırım."
+    ],
+    "correctAnswerIndex": 1,
+    "time": 60
+  },
+  {
+    "question": "Kod kalitesini artırmak ve test kapsamını genişletmek için en etkili yöntem hangisidir?",
+    "options": [
+      "A) Her yeni özellik için kapsamlı unit test yazarım.",
+      "B) Sadece kritik fonksiyonları test ederim.",
+      "C) Testleri bir kez yazar, ardından unuturum.",
+      "D) Test yazmayı sprint sonuna ertelerim."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Kod inceleme sürecinde farklı yaklaşımlara açık olmak sizin için ne ifade eder?",
+    "options": [
+      "A) Geri bildirimleri değerlendirir, alternatif kodları incelerim.",
+      "B) Kendi kodumda ısrar eder, değişiklik yapmam.",
+      "C) Sadece pozitif geri bildirim alırım, eleştiriyi görmezden gelirim.",
+      "D) Geri bildirimleri tamamen reddederim."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  }
+]

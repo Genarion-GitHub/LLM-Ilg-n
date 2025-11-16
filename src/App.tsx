@@ -101,7 +101,7 @@ const App: React.FC = () => {
             case 'interview':
                 return <Interview sessionId={sessionIdRef.current!} onStartQuiz={() => setPage('quiz')} />;
             case 'quiz':
-                return <Quiz onComplete={handleQuizComplete} />;
+                return <Quiz onComplete={handleQuizComplete} sessionId={sessionIdRef.current!} />;
             case 'qna':
                 return <QnA sessionId={sessionIdRef.current!} onComplete={() => setPage('completion')} />;
             case 'completion':

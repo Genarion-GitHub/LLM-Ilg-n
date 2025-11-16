@@ -1,0 +1,112 @@
+[
+  {
+    "question": "Bir kampanya performansını değerlendirirken verileri nasıl analiz edersiniz?",
+    "options": [
+      "Öncelikle temel metrikleri inceler, ardından trendleri belirler ve sonuçları raporlarım.",
+      "İlk olarak tüm verileri toplar, detaylı istatistiksel analiz yapar, ardından aksiyon planı oluştururum.",
+      "Verileri hızlıca gözden geçirip en belirgin sorunları tespit eder, ardından basit iyileştirmeler öneririm.",
+      "Verileri bir kenara koyup, yaratıcı fikirlerle kampanyayı yeniden tasarlarım."
+    ],
+    "correctAnswerIndex": 1,
+    "time": 60
+  },
+  {
+    "question": "Zorlu bir performans sorunu ile karşılaştığınızda ilk adımınız nedir?",
+    "options": [
+      "Sorunun kök nedenini belirlemek için verileri derinlemesine incelerim.",
+      "Hemen ekiple bir beyin fırtınası yaparak yaratıcı çözümler üretirim.",
+      "Sorunu görmezden gelerek diğer görevleri tamamlarım.",
+      "Üst yönetime durumu bildirip karar beklerim."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Yeni bir sosyal medya kampanyası için fikir üretirken genellikle nasıl bir yol izlersiniz?",
+    "options": [
+      "Sektör trendlerini inceleyip benzer örnekleri kopyalarım.",
+      "Farklı platformların özelliklerini analiz eder, yenilikçi içerik formatları geliştiririm.",
+      "Önceden hazırlanmış şablonları kullanırım.",
+      "Takım arkadaşlarından tamamen yeni bir şey beklerim."
+    ],
+    "correctAnswerIndex": 1,
+    "time": 60
+  },
+  {
+    "question": "Kampanya görselleri tasarlarken yaratıcılığınızı nasıl ortaya koyarsınız?",
+    "options": [
+      "Sadece marka kılavuzuna uyarım.",
+      "Geleneksel tasarım kurallarını takip ederim.",
+      "Çeşitli ilham kaynaklarından esinlenerek özgün konseptler üretirim.",
+      "Görselleri otomatik araçlarla hızla oluştururum."
+    ],
+    "correctAnswerIndex": 2,
+    "time": 60
+  },
+  {
+    "question": "Bir proje kapsamında farklı departmanlarla iletişim kurmanız gerektiğinde önceliğiniz nedir?",
+    "options": [
+      "Kısa ve net mesajlarla bilgi akışını sağlamak.",
+      "Uzun toplantılar düzenleyerek herkesin görüşünü almak.",
+      "Sadece e-posta gönderip gerisini ekibe bırakmak.",
+      "İletişimi minimumda tutup sadece zorunlu konularda konuşmak."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Müşteri geri bildirimlerini ele alırken tarzınız nasıldır?",
+    "options": [
+      "Aktif dinleyip, geri bildirimi detaylı not alıp çözüm öneririm.",
+      "Geri bildirimi hızlıca reddeder, zaman kaybını önlerim.",
+      "Sadece olumlu geri bildirimleri dikkate alırım.",
+      "Geri bildirimi bir sonraki toplantıya ertelerim."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Yoğun bir haftada görevlerinizi nasıl önceliklendirirsiniz?",
+    "options": [
+      "En acil olanları önce yapar, ardından önem derecesine göre devam ederim.",
+      "Öncelikle sevdiğim görevleri yaparım, zor olanları ertelemeye çalışırım.",
+      "Tüm görevleri aynı anda yapmaya çalışırım.",
+      "Görevleri rastgele seçerek tamamlarım."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Haftada iki gün uzaktan çalışırken iş ve kişisel yaşam dengesini nasıl sağlarsınız?",
+    "options": [
+      "Çalışma saatleri dışında kesinlikle iş e-postasını kontrol etmem.",
+      "Çalışma saatleri içinde iş odaklı kalır, kişisel zaman için net sınırlar koyarım.",
+      "Uzaktan çalışırken sürekli mülakat yapar, kişisel zamanımı ihmal ederim.",
+      "İş ve kişisel zaman arasında fark gözetmeden her an çalışırım."
+    ],
+    "correctAnswerIndex": 1,
+    "time": 60
+  },
+  {
+    "question": "Ekip içinde fikir ayrılığı yaşandığında nasıl bir tutum sergilersiniz?",
+    "options": [
+      "Diğerlerinin görüşlerini dinleyip ortak bir çözüm bulmaya çalışırım.",
+      "Kendi fikrimi ısrarla savunurum, karşıt görüşleri göz ardı ederim.",
+      "Tartışmayı kaçırarak sessiz kalırım.",
+      "Sorunu yöneticinin çözmesini beklerim."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  },
+  {
+    "question": "Bir projede ekip arkadaşlarınızın zor bir dönemden geçtiğini fark ederseniz ne yaparsınız?",
+    "options": [
+      "Destek teklif eder, gerekiyorsa görev dağılımını yeniden düzenlerim.",
+      "Kendi işime odaklanır, başkalarının sorunlarıyla ilgilenmem.",
+      "Onlara eleştiri yaparak motivasyonlarını artırmaya çalışırım.",
+      "Durumu yönetime bildirip sorumluluğu onlara bırakırım."
+    ],
+    "correctAnswerIndex": 0,
+    "time": 60
+  }
+]

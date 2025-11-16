@@ -150,8 +150,8 @@ async def handle_chat(request: ChatRequest):
     elif stage == "starting":
         job_id = session["job_id"]
         candidate_id = session["candidate_id"]
-        candidate_cv = load_json_data('cv.json', job_id, candidate_id)
-        job_data = load_json_data('jobad.json', job_id, candidate_id)
+        candidate_cv = file_manager.reader.get_cv_data(candidate_id)
+        job_data = file_manager.reader.get_job_ad_data(job_id)
         agent_result = await starting_agent(client, history_str, user_message, candidate_cv, job_data)
         response_text = agent_result.get("response", "")
         if agent_result.get("is_complete"):
@@ -160,8 +160,8 @@ async def handle_chat(request: ChatRequest):
     elif stage == "interview":
         job_id = session["job_id"]
         candidate_id = session["candidate_id"]
-        candidate_cv = load_json_data('cv.json', job_id, candidate_id)
-        job_data = load_json_data('jobad.json', job_id, candidate_id)
+        candidate_cv = file_manager.reader.get_cv_data(candidate_id)
+        job_data = file_manager.reader.get_job_ad_data(job_id)
         response_text = await interview_agent(client, history_str, user_message, candidate_cv, job_data)
         if "INTERVIEW_COMPLETE" in response_text:
             response_text = response_text.replace("INTERVIEW_COMPLETE", "").strip()
@@ -216,19 +216,24 @@ async def save_transcript(request: ChatRequest):
     return {"status": "success"}
 
 @app.post('/api/agents/quiz')
-async def handle_quiz_agent_route():
-    quiz_data = file_manager.get_job_data("", JOB_ID, "Quiz")
-    if not quiz_data:
-        qna_data = file_manager.reader.get_qna_data(JOB_ID)
-        job_data = file_manager.reader.get_job_ad_data(JOB_ID)
-        quiz_data = await quiz_agent(client, qna_data, job_data)
-        
-        # Oluşturulan quiz'i ilan klasörüne kaydet
-        file_manager.writer.save_job_data(JOB_ID, "Quiz", quiz_data)
-        
-        return quiz_data
-    else:
-        return quiz_data
+async def handle_quiz_agent_route(request: ChatRequest):
+    session = get_session(request.sessionId)
+    job_id = session.get('job_id')
+    
+    print(f"🔍 Quiz istendi - SessionId: {request.sessionId}, JobId: {job_id}")
+    
+    # Her seferinde yeni quiz oluştur (cache'i kaldır)
+    qna_data = file_manager.reader.get_qna_data(job_id)
+    job_data = file_manager.reader.get_job_ad_data(job_id)
+    
+    print(f"💼 İş ilanı: {job_data.get('position', 'Bilinmiyor')}")
+    print(f"📝 Q&A veri sayısı: {len(qna_data) if isinstance(qna_data, list) else 'Dict'}")
+    
+    quiz_data = await quiz_agent(client, qna_data, job_data)
+    
+    print(f"✅ Quiz oluşturuldu - İlk soru: {quiz_data[0].get('question', 'Soru yok') if quiz_data else 'Quiz boş'}")
+    
+    return quiz_data
 
 class QuizResultsRequest(BaseModel):
     sessionId: str
