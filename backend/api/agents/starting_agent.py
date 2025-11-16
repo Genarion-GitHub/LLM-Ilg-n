@@ -4,27 +4,41 @@ from groq import Groq
 import sys
 import os
 
-# FileManager'ı import et
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from core.file_manager import FileManager
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.file_manager import FileManager
 
-# FileManager'ı başlat
-file_manager = FileManager()
+file_manager = FileManager(base_dir=os.getenv("DATA_PATH", "../../GENAR"))
 
-async def starting_agent(client: Groq, conversation_history: str, user_message: str, cv_data: dict, job_ad_data: dict) -> dict:
+async def starting_agent(client: Groq, conversation_history: str, user_message: str, candidate_id: str) -> dict:
     """
-    Bu ajan, her zaman bir dictionary döndürür: {"response": str, "is_complete": bool}
+    Bu ajan, candidate_id ile veriyi kendi çeker.
+    Döndürdüğü: {"response": str, "is_complete": bool}
     """
-    # Debug: Conversation history'yi kontrol et
+    # Veriyi FileManager ile çek
+    try:
+        cv_data = file_manager.get_cv_data(candidate_id)
+        job_id = '-'.join(candidate_id.split('-')[:2])
+        job_ad_data = file_manager.get_job_ad_data(job_id)
+        
+        if not cv_data:
+            print(f"⚠️ Starting Agent: {candidate_id} için cv_data bulunamadı.")
+            return {"response": "Mülakat başlatılırken bir sorun oluştu (CV verisi eksik).", "is_complete": True}
+        if not job_ad_data:
+            print(f"⚠️ Starting Agent: {candidate_id} için job_ad_data bulunamadı.")
+            return {"response": "Mülakat başlatılırken bir sorun oluştu (İlan verisi eksik).", "is_complete": True}
+            
+    except Exception as e:
+        print(f"❌ Starting Agent - Dosya Çekme Hatası: {e}")
+        return {"response": f"Sistem hatası: {e}", "is_complete": True}
+    
+    # Debug
     print(f"🔍 Starting Agent Conversation History: '{conversation_history}'")
     print(f"🔍 Starting Agent User Message: '{user_message}'")
     print(f"🔍 CV Name: {cv_data.get('name', 'Unknown')}")
     print(f"🔍 Job Position: {job_ad_data.get('position', 'Unknown')}")
     
-    # Eğer sohbet geçmişi boşsa ve kullanıcıdan bir mesaj gelmediyse, bu ilk etkileşimdir.
-    # İlk mesajı da LLM'den al
     if not conversation_history.strip() and not user_message.strip():
-        user_message = "FIRST_MESSAGE"  # İlk mesaj için özel işaret
+        user_message = "FIRST_MESSAGE"
 
     # İlk mesaj mı kontrol et
     is_first_message = user_message == "FIRST_MESSAGE"

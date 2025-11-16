@@ -105,17 +105,6 @@ class FileManager:
         
         return candidate_folder
     
-    def _get_next_candidate_number(self, job_folder: str) -> int:
-        """Bir sonraki aday numarasını hesaplar"""
-        if not os.path.exists(job_folder):
-            return 1
-            
-        existing_folders = [f for f in os.listdir(job_folder) 
-                          if os.path.isdir(os.path.join(job_folder, f)) 
-                          and f.startswith("Genar-")]
-        
-        return len(existing_folders) + 1
-    
     def _update_interview_list(self, job_folder: str, candidate_id: str, candidate_data: dict):
         """Interview_list.json dosyasını günceller"""
         interview_list_path = os.path.join(job_folder, "Interview_list.json")

@@ -1,13 +1,32 @@
 import json
 from groq import AsyncGroq
+import sys
+import os
 
-async def ending_agent(client: AsyncGroq, conversation_history: str, user_message: str, qna_data: dict):
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.file_manager import FileManager
+
+file_manager = FileManager(base_dir=os.getenv("DATA_PATH", "../../GENAR"))
+
+async def ending_agent(client: AsyncGroq, conversation_history: str, user_message: str, candidate_id: str):
     """
     Post-Interview Q&A Agent
-    - Sadece Q&A verisini kullanır
+    - candidate_id ile Q&A verisini kendi çeker
     - Adayın sorularını yanıtlar
     - Mülakat sonlandırma sinyali gönderir
     """
+    
+    # Veriyi FileManager ile çek
+    try:
+        job_id = '-'.join(candidate_id.split('-')[:2])
+        qna_data = file_manager.get_qna_data(job_id)
+        
+        if not qna_data:
+            print(f"⚠️ Ending Agent: {job_id} için qna_data bulunamadı.")
+            qna_data = {}
+    except Exception as e:
+        print(f"❌ Ending Agent - Dosya Çekme Hatası: {e}")
+        qna_data = {}
     
     # İlk açılış mesajı (user_message boşsa)
     if not user_message:

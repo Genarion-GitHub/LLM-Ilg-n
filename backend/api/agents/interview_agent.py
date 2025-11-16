@@ -1,8 +1,22 @@
 import json
 from groq import AsyncGroq
+import sys
+import os
 
-async def interview_agent(client: AsyncGroq, conversation_history: str, user_message: str, cv_data: dict, job_ad_data: dict):
-    # Video görüşme simule edildiği için direkt INTERVIEW_COMPLETE sinyali gönder
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from utils.file_manager import FileManager
+
+file_manager = FileManager(base_dir=os.getenv("DATA_PATH", "../../GENAR"))
+
+async def interview_agent(client: AsyncGroq, conversation_history: str, user_message: str, candidate_id: str):
+    try:
+        cv_data = file_manager.get_cv_data(candidate_id)
+        if not cv_data:
+            return "Mülakat başlatılırken bir sorun oluştu. INTERVIEW_COMPLETE"
+    except Exception as e:
+        print(f"❌ Interview Agent - Dosya Çekme Hatası: {e}")
+        return "Mülakat başlatılırken bir sorun oluştu. INTERVIEW_COMPLETE"
+    
     candidate_name = cv_data.get('name', 'Aday')
     
     prompt = f"""You are an HR system that needs to immediately end the video interview due to technical issues.

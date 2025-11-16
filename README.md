@@ -41,6 +41,7 @@ AI destekli video mülakat ve işe alım platformu. Adayları planlama, sohbet a
 - **Mikroservis Mimarisi**: 4 bağımsız agent (Starting, Interview, Quiz, Ending)
 - **Interface Segregation**: FileReader (okuma), FileWriter (yazma), FileManagerOps (yönetim)
 - **Session-based State Management**: Her aday için ayrı session
+- **Agent Özerkliği**: Her agent kendi verisini FileManager ile çeker
 - **Async/Await**: Performans optimizasyonu
 
 ## Kurulum
